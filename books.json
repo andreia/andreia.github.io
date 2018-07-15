@@ -1,0 +1,120 @@
+{
+    "misc": [
+        {
+        }
+    ],
+    "webdev": [
+        {
+            "name": "Algorithms to Live By: The Computer Science of Human Decisions",
+            "author": "Tom Griffiths",
+            "description": "What should we do, or leave undone, in a day or a lifetime? How much messiness should we accept? What balance of the new and familiar is the most fulfilling? These may seem like uniquely human quandaries, but they are not. Computers, like us, confront limited space and time, so computer scientists have been grappling with similar problems for decades. And the solutions they've found have much to teach us.",
+            "url": "https://www.amazon.com/Algorithms-Live-Computer-Science-Decisions/dp/1250118360/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/algorithms-to-live-by.jpg"
+        },
+        {
+            "name": "Clean Code: A Handbook of Agile Software Craftsmanship",
+            "author": "Robert C. Martin",
+            "description": "Martin has teamed up with his colleagues from Object Mentor to distill their best agile practice of cleaning code on the fly into a book that will instill within you the values of a software craftsman and make you a better programmer–but only if you work at it.",
+            "url": "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/?tag=andreiabohner-20",
+            "image": "http://assets.andreiabohner.org/books/web-development/clean-code.jpg"
+        },
+        {
+            "name": "Code Complete: A Practical Handbook of Software Construction",
+            "author": "Steve McConnell",
+            "description": "Capturing the body of knowledge available from research, academia, and everyday commercial practice, McConnell synthesizes the most effective techniques and must-know principles into clear, pragmatic guidance. No matter what your experience level, development environment, or project size, this book will inform and stimulate your thinking—and help you build the highest quality code.",
+            "url": "https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/code-complete.jpg"
+        },
+        {
+            "name": "Design Patterns: Elements of Reusable Object-Oriented Software",
+            "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+            "description": "Capturing a wealth of experience about the design of object-oriented software, four top-notch designers present a catalog of simple and succinct solutions to commonly occurring design problems. Previously undocumented, these 23 patterns allow designers to create more flexible, elegant, and ultimately reusable designs without having to rediscover the design solutions themselves.",
+            "url": "https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreia/andreia.github.io/master/images/books/web-development/design-patterns.jpg"
+        },
+        {
+            "name": "Don't Make Me Think, Revisited: A Common Sense Approach to Web Usability",
+            "author": "Steve Krug",
+            "description": "Since Don't Make Me Think was first published in 2000, hundreds of thousands of Web designers and developers have relied on usability guru Steve Krug’s guide to help them understand the principles of intuitive navigation and information design. Witty, commonsensical, and eminently practical, it’s one of the best-loved and most recommended books on the subject.",
+            "url": "https://www.amazon.com/Dont-Make-Think-Revisited-Usability/dp/0321965515/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreia/andreia.github.io/master/images/books/web-development/dont-make-me-think.jpg"
+        },
+        {
+            "name": "Dreaming in Code: Two Dozen Programmers, Three Years, 4,732 Bugs, and One Quest for Transcendent Software",
+            "author": "Scott Rosenberg",
+            "description": "Their story takes us through a maze of dead ends and exhilarating breakthroughs as they and their colleagues wrestle not only with the abstraction of code but with the unpredictability of human behavior, especially their own. Along the way, we encounter black holes, turtles, snakes, dragons, axe-sharpening, and yak-shaving—and take a guided tour through the theories and methods, both brilliant and misguided, that litter the history of software development, from the famous “mythical man-month” to Extreme Programming. Not just for technophiles but for anyone captivated by the drama of invention, Dreaming in Code offers a window into both the information age and the workings of the human mind.",
+            "url": "https://www.amazon.com/Dreaming-Code-Programmers-Transcendent-Software-ebook/dp/B000PDZFOI/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/dreaming-in-code.jpg"
+        },
+        {
+            "name": "Driving Technical Change",
+            "author": "Terrence Ryan",
+            "description": "Your co-workers' resistance to new technologies can be baffling. Logical arguments can fail. If you don't do politics, you will fail. With Driving Technical Change, by Terrence Ryan, you'll learn to read users' patterns of resistance - and then dismantle their objections. Every developer must master the art of evangelizing. With these techniques and strategies, you'll help your organization adopt your solutions-without selling your soul to organizational politics.",
+            "url": "https://www.amazon.com/Driving-Technical-Change-Terrence-Ryan/dp/1934356603/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/driving-technical-change.jpg"
+        },
+        {
+            "name": "Facts and Fallacies of Software Engineering",
+            "author": "Robert L. Glass",
+            "description": "While reading Facts and Fallacies of Software Engineering , you may experience moments of 'Oh, yes, I had forgotten that,' alongside some 'Is that really true?' thoughts. The author of this book doesn’t shy away from controversy. In fact, each of the facts and fallacies is accompanied by a discussion of whatever controversy envelops it. You may find yourself agreeing with a lot of the facts and fallacies, yet emotionally disturbed by a few of them! Whether you agree or disagree, you will learn why the author has been called 'the premier curmudgeon of software practice.'",
+            "url": "https://www.amazon.com/Facts-Fallacies-Software-Engineering-Robert-ebook/dp/B001TKD4RG/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/facts-and-fallacies.jpg"
+        },
+        {
+            "name": "Fifty Quick Ideas to Improve Your User Stories",
+            "author": "Gojko Adzic, David Evans",
+            "description": "This book will help you write better stories, spot and fix common issues, split stories so that they are smaller but still valuable, and deal with difficult stuff like crosscutting concerns, long-term effects and non-functional requirements. Above all, this book will help you achieve the promise of agile and iterative delivery: to ensure that the right stuff gets delivered through productive discussions between delivery team members and business stakeholders.",
+            "url": "https://www.amazon.com/Fifty-Quick-Ideas-Improve-Stories/dp/0993088104/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/improve-user-stories.jpg"
+        },
+        {
+            "name": "Gödel, Escher, Bach: An Eternal Golden Braid",
+            "author": "Douglas R. Hofstadter",
+            "description": "Douglas Hofstadter's book is concerned directly with the nature of 'maps' or links between formal systems. However, according to Hofstadter, the formal system that underlies all mental activity transcends the system that supports it. If life can grow out of the formal chemical substrate of the cell, if consciousness can emerge out of a formal system of firing neurons, then so too will computers attain human intelligence. Gödel, Escher, Bach is a wonderful exploration of fascinating ideas at the heart of cognitive science: meaning, reduction, recursion, and much more.",
+            "url": "https://www.amazon.com/G-del-Escher-Bach-Eternal-Golden/dp/0465026567/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/godel-escher-bach.jpg"
+        },
+        {
+            "name": "Hackers & Painters: Big Ideas from the Computer Age",
+            "author": "Paul Graham",
+            "description": "The ideas discussed in this book will have a powerful and lasting impact on how we think, how we work, how we develop technology, and how we live. Topics include the importance of beauty in software design, how to make wealth, heresy and free speech, the programming language renaissance, the open-source movement, digital design, internet startups, and more.",
+            "url": "https://www.amazon.com/Hackers-Painters-Big-Ideas-Computer-ebook/dp/B0026OR2NQ/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/hackers-painters.jpg"
+        },
+        {
+            "name": "JavaScript: The Definitive Guide: Activate Your Web Pages (Definitive Guides)",
+            "author": "David Flanagan",
+            "description": "The 6th edition covers HTML5 and ECMAScript 5. Many chapters have been completely rewritten to bring them in line with today's best web development practices. New chapters in this edition document jQuery and server side JavaScript. It's recommended for experienced programmers who want to learn the programming language of the Web, and for current JavaScript programmers who want to master it.",
+            "url": "https://www.amazon.com/JavaScript-Definitive-Guide-Activate-Guides/dp/0596805527/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/javascript-definitive.jpg"
+        },
+        {
+            "name": "Refactoring: Improving the Design of Existing Code",
+            "author": "Martin Fowler",
+            "description": "For several years, expert-level object programmers have employed a growing collection of techniques to improve the structural integrity and performance of such existing software programs. Referred to as 'refactoring,' these practices have remained in the domain of experts because no attempt has been made to transcribe the lore into a form that all developers could use... until now. In Refactoring: Improving the Design of Existing Code, renowned object technology mentor Martin Fowler breaks new ground, demystifying these master practices and demonstrating how software practitioners can realize the significant benefits of this new process.",
+            "url": "https://www.amazon.com/Refactoring-Improving-Existing-Addison-Wesley-Technology-ebook/dp/B007WTFWJ6/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/refactoring.jpg"
+        },
+        {
+            "name": "Reversing: Secrets of Reverse Engineering",
+            "author": "Eldad Eilam",
+            "description": "Beginning with a basic primer on reverse engineering-including computer internals, operating systems, and assembly language-and then discussing the various applications of reverse engineering, this book provides readers with practical, in-depth techniques for software reverse engineering. The book is broken into two parts, the first deals with security-related reverse engineering and the second explores the more practical aspects of reverse engineering. In addition, the author explains how to reverse engineer a third-party software library to improve interfacing and how to reverse engineer a competitor's software to build a better product.",
+            "url": "https://www.amazon.com/Reversing-Secrets-Engineering-Eldad-Eilam/dp/0764574817/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/reversing.jpg"
+        },
+        {
+            "name": "Soft Skills: The software developer's life manual",
+            "author": "John Sonmez",
+            "description": "For most software developers, coding is the fun part. The hard bits are dealing with clients, peers, and managers, staying productive, achieving financial security, keeping yourself in shape, and finding true love. This book is here to help.",
+            "url": "https://www.amazon.com/Soft-Skills-software-developers-manual/dp/1617292397/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/soft-skills.jpg"
+        },
+        {
+            "name": "The Passionate Programmer: Creating a Remarkable Career in Software Development (Pragmatic Life) ",
+            "author": "Chad Fowler",
+            "description": "Success in today's IT environment requires you to view your career as a business endeavor. In this book, you'll learn how to become an entrepreneur, driving your career in the direction of your choosing. You'll learn how to build your software development career step by step, following the same path that you would follow if you were building, marketing, and selling a product. After all, your skills themselves are a product.",
+            "url": "https://www.amazon.com/Passionate-Programmer-Remarkable-Development-Pragmatic/dp/1934356344/?tag=andreiabohner-20",
+            "image": "https://raw.githubusercontent.com/andreiabohner/books/master/images/books/web-development/passionate-programmer.jpg"
+        }
+    ]
+}
