@@ -1,0 +1,48 @@
+a {
+    @apply .font-semibold;
+    @apply .no-underline;
+    @apply .text-pink-500;
+
+    &:hover {
+        @apply .text-pink-700;
+    }
+}
+
+::selection {
+    @apply .bg-pink-500;
+    @apply .text-white;
+}
+
+blockquote {
+    @apply .border-pink-400;
+    @apply .border-l-4;
+    @apply .font-normal;
+    @apply .italic;
+    @apply .my-8;
+    @apply .pl-6;
+    @apply .text-gray-800;
+    @apply .text-lg;
+}
+
+pre {
+    @apply .bg-code-dark;
+    @apply .leading-loose;
+    @apply .my-6;
+    @apply .overflow-x-auto;
+    @apply .p-4;
+    @apply .rounded;
+    @apply .shadow;
+    @apply .text-base;
+
+    code {
+        @apply .block;
+        @apply .p-0;
+    }
+}
+
+hr {
+    @apply .border-b;
+    @apply .border-pink-200;
+    @apply .my-12;
+    @apply .rounded-full;
+}
