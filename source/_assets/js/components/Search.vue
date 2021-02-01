@@ -33,14 +33,14 @@
                             v-for="(result, index) in results"
                             class="bg-white hover:bg-pink-100 border-b border-pink-400 text-xl cursor-pointer p-4"
                             :class="{ 'rounded-b-lg' : (index === results.length - 1) }"
-                            :href="result.link"
-                            :title="result.title"
-                            :key="result.link"
+                            :href="result.item.link"
+                            :title="result.item.title"
+                            :key="result.item.link"
                             @mousedown.prevent
                         >
-                            {{ result.title }}
+                            {{ result.item.title }}
 
-                            <span class="block font-normal text-gray-700 text-sm my-1" v-html="result.snippet"></span>
+                            <span class="block font-normal text-gray-700 text-sm my-1" v-html="result.item.snippet"></span>
                         </a>
 
                         <div
@@ -93,7 +93,7 @@ export default {
     },
     created() {
         axios('/index.json').then(response => {
-            this.fuse = new fuse(response.data, {
+            this.fuse = new Fuse(response.data, {
                 minMatchCharLength: 6,
                 keys: ['title', 'snippet', 'categories'],
             });
