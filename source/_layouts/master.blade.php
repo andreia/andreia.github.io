@@ -10,6 +10,12 @@
         <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
         <meta property="og:url" content="{{ $page->getUrl() }}"/>
         <meta property="og:description" content="{{ $page->description ?? $page->siteDescription }}" />
+        <meta name="twitter:title" content="{{ $page->title ?: $page->siteName }}">
+        <meta name="twitter:description" content="{!! $page->excerpt ?: $page->siteDescription !!}">
+        <meta name="twitter:image" content="{{ $page->cover_image ?: $page->siteImage }}">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="{{ "@{$page->accounts->twitter}" }}">
+        <meta name="twitter:creator" content="{{ "@{$page->accounts->twitter}" }}">
 
         <title>{{ $page->title ?  $page->title . ' | ' : '' }}{{ $page->siteName }}</title>
 

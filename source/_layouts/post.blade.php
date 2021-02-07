@@ -44,4 +44,18 @@
             @endif
         </div>
     </nav>
+
+    <div>
+        @if ($page->comments)
+            <vue-disqus
+                shortname="{{ $page->services->disqus }}"
+                url="{{ $page->getUrl() }}/"
+                identifier="{{ $page->getFilename() }}"
+            ></vue-disqus>
+        @else
+            <div>
+                Comments are not enabled for this post.
+            </div>
+        @endif
+    </div>
 @endsection

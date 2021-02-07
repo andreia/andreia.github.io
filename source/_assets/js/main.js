@@ -4,6 +4,7 @@ import Fuse from 'fuse.js';
 import Vue from 'vue';
 import Search from './components/Search.vue';
 import hljs from 'highlight.js/lib/core';
+import VueDisqus from 'vue-disqus';
 
 window.Fuse = Fuse;
 
@@ -23,6 +24,8 @@ document.querySelectorAll('pre code').forEach((block) => {
 });
 
 Vue.config.productionTip = false;
+
+Vue.use(VueDisqus);
 
 new Vue({
     components: {

@@ -8,6 +8,7 @@ return [
     'siteName' => 'Andréia Bohner',
     'siteDescription' => 'Web development, tech, and related stuff',
     'siteAuthor' => 'Andréia Bohner',
+    'siteImage' => '/assets/img/post-cover-dandelion.jpg',
 
     // collections
     'collections' => [
@@ -24,6 +25,15 @@ return [
                 });
             },
         ],
+    ],
+
+    'services' => [
+        'disqus' => 'andreiabohnergithub',
+    ],
+
+    'accounts' => [
+        'twitter' => 'andreiabohner',
+        'github' => 'andreia',
     ],
 
     // helpers

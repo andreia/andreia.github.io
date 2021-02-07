@@ -8,6 +8,7 @@ cover_image: /assets/img/post-cover-dandelion.jpg
 categories: [configuration, laravel]
 featured: true
 excerpt: How to get Rollbar working with Vapor
+comments: true
 ---
 
 As I couldn't find on docs, maybe this will help someone to save time :)
