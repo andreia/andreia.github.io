@@ -32,48 +32,50 @@
     </head>
 
     <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
-        <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
-            <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
-                <div class="flex items-center">
-                    <a href="/" title="{{ $page->siteName }} home" class="inline-flex items-center">
-                        <h1 class="transition duration-500 ease-in-out text-lg md:text-2xl text-pink-500 font-semibold hover:text-pink-700 my-0">{{ $page->siteName }}</h1>
-                    </a>
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="{{ $page->siteName }} home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-2xl text-pink-500 font-semibold hover:text-pink-700 my-0">{{ $page->siteName }}</h1>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        @include('_nav.menu')
+
+                        @include('_nav.menu-toggle')
+                    </div>
                 </div>
+            </header>
 
-                <div id="vue-search" class="flex flex-1 justify-end items-center">
-                    <search></search>
+            @include('_nav.menu-responsive')
 
-                    @include('_nav.menu')
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                @yield('body')
+            </main>
 
-                    @include('_nav.menu-toggle')
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
                 </div>
-            </div>
-        </header>
-
-        @include('_nav.menu-responsive')
-
-        <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
-            @yield('body')
-        </main>
-
-        <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
-            <div class="flex flex-col md:flex-row justify-center md:mr-2">
-                <span>
-                    Happy coding!
-                </span>
-                <span>
-                    <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-                    </svg>
-                </span>
-            </div>
-            <ul class="flex flex-col md:flex-row justify-center list-none">
-                <li>
-                    <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
-                    . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
-                </li>
-            </ul>
-        </footer>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
 
         <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
 

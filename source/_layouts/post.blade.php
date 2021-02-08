@@ -45,13 +45,9 @@
         </div>
     </nav>
 
-    <div>
+    <div class='comments'>
         @if ($page->comments)
-            <vue-disqus
-                shortname="{{ $page->services->disqus }}"
-                url="{{ $page->getUrl() }}/"
-                identifier="{{ $page->getFilename() }}"
-            ></vue-disqus>
+            <Disqus shortname="{{ $page->services->disqus }}" />
         @else
             <div>
                 Comments are not enabled for this post.
