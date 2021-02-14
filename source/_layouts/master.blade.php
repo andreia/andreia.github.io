@@ -37,7 +37,10 @@
                 <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
                     <div class="flex items-center">
                         <a href="/" title="{{ $page->siteName }} home" class="inline-flex items-center">
-                            <h1 class="transition duration-500 ease-in-out text-lg md:text-2xl text-pink-500 font-semibold hover:text-pink-700 my-0">{{ $page->siteName }}</h1>
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulse flex space-x-4">
+                                <div class="bg-pink-400 h-5 w-2"></div>
+                            </div>
                         </a>
                     </div>
 
