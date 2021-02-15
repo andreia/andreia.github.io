@@ -6,16 +6,21 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="description" content="{{ $page->description ?? $page->siteDescription }}">
 
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
         <meta property="og:title" content="{{ $page->title ? $page->title . ' | ' : '' }}{{ $page->siteName }}"/>
         <meta property="og:type" content="{{ $page->type ?? 'website' }}" />
         <meta property="og:url" content="{{ $page->getUrl() }}"/>
         <meta property="og:description" content="{{ $page->description ?? $page->siteDescription }}" />
+        <meta property="og:image" content="{{ $page->cover_image ?: $page->siteImage }}" />
         <meta name="twitter:title" content="{{ $page->title ?: $page->siteName }}">
         <meta name="twitter:description" content="{!! $page->excerpt ?: $page->siteDescription !!}">
         <meta name="twitter:image" content="{{ $page->cover_image ?: $page->siteImage }}">
-        <meta name="twitter:card" content="summary">
+        <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="{{ "@{$page->accounts->twitter}" }}">
         <meta name="twitter:creator" content="{{ "@{$page->accounts->twitter}" }}">
+        <meta name="twitter:url" content="{{ $page->getUrl() }}"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
 
         <title>{{ $page->title ?  $page->title . ' | ' : '' }}{{ $page->siteName }}</title>
 
@@ -38,8 +43,8 @@
                     <div class="flex items-center">
                         <a href="/" title="{{ $page->siteName }} home" class="inline-flex items-center">
                             <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
-                            <div class="pl-3 animate-pulse flex space-x-4">
-                                <div class="bg-pink-400 h-5 w-2"></div>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
                             </div>
                         </a>
                     </div>

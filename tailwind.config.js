@@ -17,6 +17,15 @@ module.exports = {
   },
   theme: {
     extend: {
+      animation: {
+         'pulsefast': 'pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite',
+      },
+      keyframes: {
+         pulsefast: {
+           '0%': { opacity: '0' },
+           '100%': { opacity: '1' },
+         },
+      },
       colors: {
         'code-dark': '#23241F',
       },

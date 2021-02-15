@@ -32573,6 +32573,26 @@ hr {
   }
 }
 
+@-webkit-keyframes pulsefast{
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+@keyframes pulsefast{
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
 .animate-none{
   -webkit-animation: none;
           animation: none;
@@ -32596,6 +32616,11 @@ hr {
 .animate-bounce{
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
+}
+
+.animate-pulsefast{
+  -webkit-animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+          animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
 }
 
 .transition-fast{
@@ -64131,6 +64156,11 @@ hr {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .sm\:animate-pulsefast{
+    -webkit-animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+            animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+  }
 }
 
 @media (min-width: 768px){
@@ -95657,6 +95687,11 @@ hr {
   .md\:animate-bounce{
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .md\:animate-pulsefast{
+    -webkit-animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+            animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
   }
 }
 
@@ -127185,6 +127220,11 @@ hr {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .lg\:animate-pulsefast{
+    -webkit-animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+            animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+  }
 }
 
 @media (min-width: 1280px){
@@ -158712,6 +158752,11 @@ hr {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .xl\:animate-pulsefast{
+    -webkit-animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+            animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+  }
 }
 
 @media (min-width: 1536px){
@@ -190238,5 +190283,10 @@ hr {
   .\32xl\:animate-bounce{
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .\32xl\:animate-pulsefast{
+    -webkit-animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
+            animation: pulsefast 1s cubic-bezier(0.42, 0.0, 1.0, 1.0) infinite;
   }
 }
