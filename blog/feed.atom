@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Andréia Bohner</title>
+    <link href="https://andreia.github.io/blog" />
+    <link type="application/atom+xml" rel="self" href="https://andreia.github.io/blog/feed.atom" />
+    <updated>2021-03-01T02:19:15+00:00</updated>
+    <id>https://andreia.github.io/blog/feed.atom</id>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+                <entry>
+    <id>https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages" />
+    <title>Quick reference on installing Composer packages from different sources</title>
+    <published>2021-02-28T00:00:00+00:00</published>
+    <updated>2021-02-28T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">A quick reference on how to configure composer.json to install a package from: local directory, GitHub repository, or Packagist....</summary>
+    <content type="html"><![CDATA[
+        <p>A quick reference on how to configure <code>composer.json</code> to install a package from these sources: local directory, GitHub repository, or Packagist.</p>
+
+<h2>Install a Local Package</h2>
+
+<p>Require a local package on your <code>composer.json</code> by adding on <code>repositories</code> key <code>"type": "path"</code> and providing the directory of your package in <code>url</code>:</p>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "my/format-converter": "*"
+  },
+
+  "repositories": [
+      ...
+      {
+          "type": "path",
+          "url": "./packages/format-converter"
+      }
+  ],
+</code></pre>
+
+<h2>Install a Package Directly from GitHub Repository (or other VCS)</h2>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "my/package-name": "dev-main"
+  },
+
+  "repositories": [
+    ...
+    {
+        "type": "vcs",
+        "url": "https://github.com/my/package-name"
+    }
+  ],
+</code></pre>
+
+<h2>Install a Package from Packagist</h2>
+
+<p><a href="https://packagist.org">Packagist</a> is the default Composer package repository.</p>
+
+<p>Install a package from Packagist using <code>composer require &lt;package-name&gt;</code> (it will update <code>composer.json</code>) or by adding it directly in the <code>require</code> key on <code>composer.json</code> and then running <code>composer update &lt;package-name&gt;</code>.</p>
+
+<h3>Command Line</h3>
+
+<pre><code class="language-bash">$ composer require aws/aws-sdk-php
+</code></pre>
+
+<h3>composer.json</h3>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "aws/aws-sdk-php": "^3.173"
+  },
+</code></pre>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3" />
+    <title>Upload large files directly to S3 using Laravel and Uppy</title>
+    <published>2021-02-13T00:00:00+00:00</published>
+    <updated>2021-02-13T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Upload large files directly to AWS S3 with Laravel (backend) and Uppy (frontend) using multipart upload....</summary>
+    <content type="html"><![CDATA[
+        <p>Dealing with large file uploads can be tricky. An optimized solution is to upload directly to Amazon S3 using multipart upload, preventing server overload.</p>
+
+<p>When using AWS SDKs, REST API, or AWS CLI, Amazon S3 allows you upload a file up to <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html">5Gb in a single operation</a>. To upload files larger than 5Gb you <em>must</em> use multipart upload.</p>
+
+<p>If you have already ventured into coding S3 multipart uploads, you probably know that debugging is the most fun part. You can get lost with obscure CORS messages that have nothing to do with CORS at all. You have to analyze every request, header, and the code behind the scenes to get a clue of what is wrong.</p>
+
+<p>I've had the absolute joy of working with a great team on my first Laravel package to simplify this task: <a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload">Multipart Uploads using Laravel, AWS S3, and Uppy</a>. If you are working with large file uploads to S3, this package will be very handy! It has everything you need to upload, you'll only have to configure few things and you're ready to go.</p>
+
+<p>Briefly, the package upload files directly to S3 using multipart upload and returns the URL of the uploaded file. You can pause and abort the upload. It uses the amazing <a href="https://uppy.io">Uppy</a> library for the frontend.</p>
+
+<p>To add the HTML and JS required to get Uppy working it uses a Blade component (<code>&lt;x-input.uppy /&gt;</code>).
+Alternatively, you can change the template code by publishing the package view or you can create your own template in your app (please see below on "View and JS Configuration").</p>
+
+<p>Let's start!</p>
+
+<h2>Installing</h2>
+
+<h3>Install using Composer</h3>
+
+<pre><code class="language-bash">composer require tapp/laravel-uppy-s3-multipart-upload
+</code></pre>
+
+<h3>Add required JS libraries</h3>
+
+<p>Add on your package.json file the Uppy JS libraries and AlpineJS library:</p>
+
+<pre><code class="language-javascript">    ...
+    "devDependencies": {
+        "alpinejs": "^2.7.3",
+        ...
+    },
+    "dependencies": {
+        "@uppy/aws-s3-multipart": "^1.8.12",
+        "@uppy/core": "^1.16.0",
+        "@uppy/drag-drop": "^1.4.24",
+        "@uppy/status-bar": "^1.9.0",
+        ...
+    }
+    ...
+</code></pre>
+
+<p>Add in your <code>resources/js/bootstrap.js</code> file:</p>
+
+<pre><code class="language-javascript">...
+
+require('@uppy/core/dist/style.min.css')
+require('@uppy/drag-drop/dist/style.min.css')
+require('@uppy/status-bar/dist/style.min.css')
+
+import Uppy from '@uppy/core'
+import DragDrop from '@uppy/drag-drop'
+import StatusBar from '@uppy/status-bar'
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
+
+window.Uppy = Uppy
+window.DragDrop = DragDrop
+window.StatusBar = StatusBar
+window.AwsS3Multipart = AwsS3Multipart
+</code></pre>
+
+<p>Add in your <code>resources/js/app.js</code>:</p>
+
+<pre><code class="language-javascript">...
+require('alpinejs');
+</code></pre>
+
+<p>Install JS libraries:</p>
+
+<pre><code>$ npm install
+$ npm run dev
+</code></pre>
+
+<h3>Publish config file</h3>
+
+<pre><code class="language-bash">php artisan vendor:publish --provider="Tapp\LaravelUppyS3MultipartUpload\LaravelUppyS3MultipartUploadServiceProvider" --tag="laravel-uppy-s3-multipart-upload-config"
+</code></pre>
+
+<h3>AWS S3 Setup</h3>
+
+<p>The package installs the AWS SDK for PHP and use Laravel's default s3 disk configuration from <code>filesystems.php</code> file.</p>
+
+<p>You just have to add your S3 keys, region, and bucket using the following env vars in your <code>.env</code> file:</p>
+
+<pre><code>AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=
+AWS_BUCKET=
+AWS_URL="https://s3.amazonaws.com"
+AWS_POST_END_POINT="https://${AWS_BUCKET}.s3.amazonaws.com/"
+</code></pre>
+
+<p>To allow direct multipart uploads to your S3 bucket, you need to add some extra configuration on bucket's CORS configuration. On your AWS S3 console, select your bucket. Click on "Permissions" tab. On "CORS configuration" add the following configuration:</p>
+
+<pre><code>[
+    {
+        "AllowedHeaders": [
+            "Authorization",
+            "x-amz-date",
+            "x-amz-content-sha256",
+            "content-type"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE",
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ]
+    }
+]
+</code></pre>
+
+<p>On AllowedOrigins:</p>
+
+<pre><code>"AllowedOrigins": [
+    "*"
+]
+</code></pre>
+
+<p>You should list the URLs allowed, e.g.:</p>
+
+<pre><code>"AllowedOrigins": [
+    "https://example.com"
+]
+</code></pre>
+
+<h2>Using</h2>
+
+<p>To begin uploading files, simply add a hidden field that will receive the S3 URL of the uploaded file, and the uppy blade component to your form in your view file:</p>
+
+<pre><code class="language-html">&lt;input type="hidden" name="image_url" id="image_url" /&gt;
+&lt;x-input.uppy /&gt;
+</code></pre>
+
+<p>Now you're ready to start uploading big files directly to S3!</p>
+
+<p><img src="/assets/img/upload-large-files-s3.png" alt="File uploaded" /></p>
+
+<h2>Let's break it down</h2>
+
+<p>You can also configure it to best suit your needs:</p>
+
+<h3>S3 Configuration</h3>
+
+<p>On the package configuration file (<code>/config/uppy-s3-multipart-upload.php</code>), you can setup:</p>
+
+<p><code>s3.bucket.folder</code> - the folder to store the uploaded files in your bucket</p>
+
+<p><code>s3.presigned_url.expiry_time</code> - the expiration time of the presigned URLs used to upload the parts</p>
+
+<pre><code>return [
+    's3' =&gt; [
+        'bucket' =&gt; [
+            /*
+             * Folder on bucket to save the file
+             */
+            'folder' =&gt; 'videos',
+        ],
+        'presigned_url' =&gt; [
+            /*
+             * Expiration time of the presigned URLs
+             */
+            'expiry_time' =&gt; '+30 minutes',
+        ],
+    ],
+];
+</code></pre>
+
+<h3>View and JS Configuration</h3>
+
+<h4>Customizing the <code>uppy</code> component</h4>
+
+<h5>Passing data</h5>
+
+<p>You can configure the <code>uppy</code> component by passing data to it:</p>
+
+<p><a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component">https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component</a></p>
+
+<h5>Changing the HTML and JS</h5>
+
+<p>First, publish it to your project with:</p>
+
+<pre><code class="language-bash">php artisan vendor:publish --provider="Tapp\LaravelUppyS3MultipartUpload\LaravelUppyS3MultipartUploadServiceProvider" --tag="laravel-uppy-s3-multipart-upload-views"
+</code></pre>
+
+<pre><code class="language-bash">Copied Directory [/vendor/tapp/laravel-uppy-s3-multipart-upload/resources/views]
+ To [/resources/views/vendor/laravel-uppy-s3-multipart-upload]
+Publishing complete.
+</code></pre>
+
+<p>Now you can change the <code>/resources/views/vendor/laravel-uppy-s3-multipart-upload/components/input/uppy.blade.php</code> file.</p>
+
+<h4>Rewriting the view</h4>
+
+<p>You can write your own view and JS. The only required part is the Uppy's <code>AwsS3Multipart</code> as follows:</p>
+
+<pre><code class="language-javascript">    Uppy
+      .use(AwsS3Multipart, {
+          companionUrl: '/',
+          companionHeaders:
+          {
+              'X-CSRF-TOKEN': window.csrfToken,
+          },
+      })
+</code></pre>
+
+<h2>That's all folks!</h2>
+
+<p>This is the pre-release of the package and it has more features to add :)</p>
+
+<p>I would really love to hear your feedback!</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor" />
+    <title>Using Rollbar with Vapor</title>
+    <published>2021-01-25T00:00:00+00:00</published>
+    <updated>2021-01-25T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">How to get Rollbar working with Vapor...</summary>
+    <content type="html"><![CDATA[
+        <p>As I couldn't find on docs, maybe this will help someone to save time :)</p>
+
+<p>You'll only have to change a few configurations to get <a href="https://rollbar.com">Rollbar</a> working with <a href="https://vapor.laravel.com/">Vapor</a>.</p>
+
+<p>On your <code>.env.production</code> add this env var:</p>
+
+<pre><code class="language-php">LOG_CHANNEL=vapor
+</code></pre>
+
+<p>And in your Laravel <code>logging</code> config:</p>
+
+<pre><code class="language-php">// config/logging.php
+
+return [
+       'channels' =&gt; [
+            'vapor' =&gt; [
+                'driver'            =&gt; 'stack',
+                'channels'          =&gt; ['rollbar', 'stderr'],
+                'ignore_exceptions' =&gt; false,
+            ],
+
+            'rollbar' =&gt; [
+                'driver'        =&gt; 'monolog',
+                'handler'       =&gt; \Rollbar\Laravel\MonologHandler::class,
+                'access_token'  =&gt; env('ROLLBAR_TOKEN'),
+                'level'         =&gt; 'debug',
+                'person_fn'     =&gt; 'Auth::user',
+                'capture_email' =&gt; true,
+            ],
+        ],
+];
+</code></pre>
+
+<blockquote>
+  <p>Found this similar solution on <a href="https://flareapp.io/docs/ignition-for-laravel/installation#using-flare-on-vapor">Flare config</a> :)</p>
+</blockquote>
+    ]]></content>
+</entry>
+    </feed>
