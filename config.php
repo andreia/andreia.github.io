@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 
 return [
-    'baseUrl' => '',
+    'baseUrl' => 'https://andreia.github.io',
     'production' => false,
     'siteName' => 'Andréia Bohner',
     'siteDescription' => 'Web development, tech, and related stuff',
