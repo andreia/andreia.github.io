@@ -1,0 +1,570 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Andréia Bohner</title>
+    <link href="https://andreia.github.io/blog" />
+    <link type="application/atom+xml" rel="self" href="https://andreia.github.io/blog/feed.atom" />
+    <updated>2021-08-08T02:49:44+00:00</updated>
+    <id>https://andreia.github.io/blog/feed.atom</id>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+                <entry>
+    <id>https://andreia.github.io/blog/2021-06-19/how-to-test-stripe-webhooks-locally-with-laravel-homestead-and-ngrok</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-06-19/how-to-test-stripe-webhooks-locally-with-laravel-homestead-and-ngrok" />
+    <title>How to test Stripe webhooks locally with Laravel, Homestead, and ngrok</title>
+    <published>2021-06-19T00:00:00+00:00</published>
+    <updated>2021-06-19T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">In this tutorial, we are going to learn how to use ngrok and Laravel to handle Stripe webhooks really nicely in our local environment....</summary>
+    <content type="html"><![CDATA[
+        <p>To be able to test <a href="https://stripe.com/docs/webhooks">Stripe webhooks</a> locally, we need to expose our local app to the internet. We can do this using tools like <a href="https://ngrok.com/">ngrok</a> or <a href="https://stripe.com/docs/stripe-cli">Stripe CLI</a>.</p>
+
+<p>When using Laravel's <a href="https://laravel.com/docs/8.x/billing#handling-stripe-webhooks">Cashier</a> (or <a href="https://spark.laravel.com/docs/1.x/spark-stripe/customization.html#webhooks">Spark</a>) together with ngrok, this integration works like a charm!
+We are going to see how to set up everything in this tutorial. Let's dig in.</p>
+
+<h2>Configuring the webhook on Laravel</h2>
+
+<h3>Adding the webhook handler</h3>
+
+<p>First, we'll add our own controller that will handle the Stripe events. Let's call it <code>StripeWebhookController</code>.
+This controller will extend Cashier's <code>WebhookController</code> (or <a href="https://spark.laravel.com/docs/1.x/spark-stripe/customization.html#webhooks">Spark</a>, if you are using it) that already provide us with <a href="https://laravel.com/docs/8.x/billing#defining-webhook-event-handlers">useful methods to handle Stripe events</a>.</p>
+
+<p>An implementation extending Cashier would look like this:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
+use Symfony\Component\HttpFoundation\Response;
+
+class StripeWebhookController extends CashierController
+{
+    /**
+     * Handle customer subscription updated.
+     *
+     * @param  array  $payload
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function handleCustomerSubscriptionUpdated(array $payload)
+    {
+        $customer = $payload['data']['object']['customer'];
+
+        // handle the incoming event...
+
+        return new Response('Webhook Handled', 200);
+    }
+}
+</code></pre>
+
+<p>By extending Cashier's <code>WebhookController</code> we can handle Stripe events following this pattern to name the methods:</p>
+
+<blockquote>
+  <p>Camel case version of the Stripe event we want to handle, prefixed by the word <code>handle</code>.</p>
+</blockquote>
+
+<p>E.g.: the method <code>handleCustomerSubscriptionUpdated(array $payload)</code> will handle the <a href="https://stripe.com/docs/api/events/types#event_types-customer.subscription.updated"><code>customer.subscription.updated</code></a> Stripe event.</p>
+
+<p><img src="/assets/img/stripe_event1.png" alt="Stripe Event" /></p>
+
+<p>All possible Stripe events are <a href="https://stripe.com/docs/api/events/types">listed here</a>.</p>
+
+<h3>Adding the webhook routes</h3>
+
+<p>By default, Cashier's webhook controller responds to the <code>/stripe/webhook</code> URL path, and Spark to <code>/spark/webhook</code>.
+However, the route can be named whatever is suitable for you.</p>
+
+<p>To use the <code>webhooks/stripe</code> route for our <code>StripeWebhookController</code> controller, add the following in your <code>route/web.php</code> file:</p>
+
+<pre><code class="language-php">use App\Http\Controllers\StripeWebhookController;
+
+Route::post('webhooks/stripe', 'StripeWebhookController@handleWebhook');
+</code></pre>
+
+<p>Cashier's <code>handleWebhook</code> method is the main entry point. This is the <a href="https://github.com/laravel/cashier-stripe/blob/12.x/src/Http/Controllers/WebhookController.php#L40-L56">method's content</a>:</p>
+
+<pre><code class="language-php">/**
+ * Handle a Stripe webhook call.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Symfony\Component\HttpFoundation\Response
+ */
+public function handleWebhook(Request $request)
+{
+    $payload = json_decode($request-&gt;getContent(), true);
+    $method = 'handle'.Str::studly(str_replace('.', '_', $payload['type']));
+
+    WebhookReceived::dispatch($payload);
+
+    if (method_exists($this, $method)) {
+        $response = $this-&gt;{$method}($payload);
+
+        WebhookHandled::dispatch($payload);
+
+        return $response;
+    }
+
+    return $this-&gt;missingMethod($payload);
+}
+
+</code></pre>
+
+<h3>Disable CSRF for Stripe webhook URLs</h3>
+
+<p>Disable CSRF for Stripe webhook routes in the <code>app/Http/Middleware/VerifyCsrfToken.php</code> middleware:</p>
+
+<pre><code class="language-php">protected $except = [
+    'webhooks/stripe',
+];
+</code></pre>
+
+<p>You can read more about it in the <a href="https://laravel.com/docs/8.x/billing#webhooks-csrf-protection">documentation here</a>.</p>
+
+<h2>Setting up ngrok</h2>
+
+<p>Let's now set up our ngrok and try this out!</p>
+
+<p><a href="https://ngrok.com/download">Download ngrok</a> and follow the installation instructions for your OS:</p>
+
+<p><a href="https://ngrok.com/download"><img src="/assets/img/ngrok_install.png" alt="ngrok install" /></a></p>
+
+<h4>1. Unzip ngrok</h4>
+
+<h4>2. Set up ngrok executable</h4>
+
+<p><strong>On Linux:</strong></p>
+
+<p>On your terminal, copy <code>ngrok</code> to <code>/usr/bin</code>.</p>
+
+<p><strong>On Windows:</strong></p>
+
+<p>Execute <code>ngrok.exe</code>. It will open a new terminal.</p>
+
+<h4>3. Start a tunnel to your local app</h4>
+
+<p>Start a HTTP tunnel to your local application (you can specify your app URL - e.g. <code>my-app.local</code> - with the <code>-host-header</code> option), by running:</p>
+
+<pre><code class="language-php">ngrok http 192.168.10.10 -host-header=my-app.local
+</code></pre>
+
+<blockquote>
+  <p>The example above is for Homestead with the default IP (<code>192.168.10.10</code>)</p>
+</blockquote>
+
+<p>You should now see the <code>HTTPs</code> and <code>HTTP</code> ngrok public URLs to your local app in <code>Forwarding</code>.</p>
+
+<p>They would look something like this:</p>
+
+<p><img src="/assets/img/ngrok.png" alt="ngrok" /></p>
+
+<p>We need to add this public URL to the Stripe dashboard.</p>
+
+<p>Copy the desired ngrok URL (<code>https</code> or <code>http</code>) appending the webhook route we added before (<code>/webhooks/stripe</code>) at the end, like this:</p>
+
+<pre><code class="language-bash">https://0a0972dc0950.ngrok.io/webhooks/stripe
+</code></pre>
+
+<p>This is our <em>webhook URL</em>.</p>
+
+<h2>Configuring the webhook on Stripe dashboard</h2>
+
+<p>Let's go ahead and add our <em>webhook URL</em> to the <a href="https://dashboard.stripe.com/">Stripe dashboard</a>:</p>
+
+<p>On left menu, go to <code>Developers &gt; Webhooks</code>.</p>
+
+<p><img src="/assets/img/stripe_menu.png" alt="Developers > Webhooks" /></p>
+
+<p>Click on the <code>Add endpoint</code> button located on top right.</p>
+
+<p><img src="/assets/img/stripe_endpoint.png" alt="Add endpoint" /></p>
+
+<p>Add the <em>webhook URL</em> to the <code>Endpoint URL</code> field.</p>
+
+<p>On <code>Events to send</code> select the events you want to handle, and click on <code>Add endpoint</code>.</p>
+
+<p><img src="/assets/img/stripe_dashboard1.png" alt="Stripe dashboard" /></p>
+
+<p>Copy the <strong>"Signing secret"</strong> value. It will be used in the next step below.</p>
+
+<p><img src="/assets/img/stripe_dashboard.png" alt="Stripe Dashboard" /></p>
+
+<h2>Adding the signing secret to our app</h2>
+
+<p>The remaining step is to update the <code>STRIPE_WEBHOOK_SECRET</code> env var with the value of <strong>"Signing secret"</strong> on the <code>.env</code> file.</p>
+
+<p>E.g:</p>
+
+<pre><code class="language-bash">STRIPE_WEBHOOK_SECRET=whsec_2ARB5nXLZ87gTHv7mYDvIQylTq7qEniu
+</code></pre>
+
+<p>To update this config value run:</p>
+
+<pre><code class="language-bash">php artisan config:clear
+</code></pre>
+
+<p>That's it. You're now all set to play with webhooks locally :)</p>
+
+<p>Update a Stripe subscription in your app and you'll see the webhook received on ngrok CLI and the code in your controller should be handled.
+You can also check the event on Stripe dashboard under <strong>"Webhook attempts"</strong> where you'll find detailed information, including the payload.</p>
+
+<blockquote>
+  <p>You can test the webhook on Stripe dashboard as well by clicking on the <code>Send test webhook</code> button located on the top right (in <code>Developers &gt; Webhooks</code>)</p>
+</blockquote>
+
+<p><img src="/assets/img/stripe_test.png" alt="Webhook test" /></p>
+
+<p>I'm happy to take any questions you have in the comments section below.</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages" />
+    <title>Quick reference on installing Composer packages from different sources</title>
+    <published>2021-02-28T00:00:00+00:00</published>
+    <updated>2021-02-28T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">A quick reference on how to configure composer.json to install a package from: local directory, GitHub repository, or Packagist....</summary>
+    <content type="html"><![CDATA[
+        <p>A quick reference on how to configure <code>composer.json</code> to install a package from these sources: local directory, GitHub repository, or Packagist.</p>
+
+<h2>Install a Local Package</h2>
+
+<p>Require a local package on your <code>composer.json</code> by adding on <code>repositories</code> key <code>"type": "path"</code> and providing the directory of your package in <code>url</code>:</p>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "my/format-converter": "*"
+  },
+
+  "repositories": [
+      ...
+      {
+          "type": "path",
+          "url": "./packages/format-converter"
+      }
+  ],
+</code></pre>
+
+<h2>Install a Package Directly from GitHub Repository (or other VCS)</h2>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "my/package-name": "dev-main"
+  },
+
+  "repositories": [
+    ...
+    {
+        "type": "vcs",
+        "url": "https://github.com/my/package-name"
+    }
+  ],
+</code></pre>
+
+<h2>Install a Package from Packagist</h2>
+
+<p><a href="https://packagist.org">Packagist</a> is the default Composer package repository.</p>
+
+<p>Install a package from Packagist using <code>composer require &lt;package-name&gt;</code> (it will update <code>composer.json</code>) or by adding it directly in the <code>require</code> key on <code>composer.json</code> and then running <code>composer update &lt;package-name&gt;</code>.</p>
+
+<h3>Command Line</h3>
+
+<pre><code class="language-bash">$ composer require aws/aws-sdk-php
+</code></pre>
+
+<h3>composer.json</h3>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "aws/aws-sdk-php": "^3.173"
+  },
+</code></pre>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3" />
+    <title>Upload large files directly to S3 using Laravel and Uppy</title>
+    <published>2021-02-13T00:00:00+00:00</published>
+    <updated>2021-02-13T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Upload large files directly to AWS S3 with Laravel (backend) and Uppy (frontend) using multipart upload....</summary>
+    <content type="html"><![CDATA[
+        <p>Dealing with large file uploads can be tricky. An optimized solution is to upload directly to Amazon S3 using multipart upload, preventing server overload.</p>
+
+<p>When using AWS SDKs, REST API, or AWS CLI, Amazon S3 allows you upload a file up to <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html">5Gb in a single operation</a>. To upload files larger than 5Gb you <em>must</em> use multipart upload.</p>
+
+<p>If you have already ventured into coding S3 multipart uploads, you probably know that debugging is the most fun part. You can get lost with obscure CORS messages that have nothing to do with CORS at all. You have to analyze every request, header, and the code behind the scenes to get a clue of what is wrong.</p>
+
+<p>I've had the absolute joy of working with a great team on my first Laravel package to simplify this task: <a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload">Multipart Uploads using Laravel, AWS S3, and Uppy</a>. If you are working with large file uploads to S3, this package will be very handy! It has everything you need to upload, you'll only have to configure few things and you're ready to go.</p>
+
+<p>Briefly, the package upload files directly to S3 using multipart upload and returns the URL of the uploaded file. You can pause and abort the upload. It uses the amazing <a href="https://uppy.io">Uppy</a> library for the frontend.</p>
+
+<p>To add the HTML and JS required to get Uppy working it uses a Blade component (<code>&lt;x-input.uppy /&gt;</code>).
+Alternatively, you can change the template code by publishing the package view or you can create your own template in your app (please see below on "View and JS Configuration").</p>
+
+<p>Let's start!</p>
+
+<h2>Installing</h2>
+
+<h3>Install using Composer</h3>
+
+<pre><code class="language-bash">composer require tapp/laravel-uppy-s3-multipart-upload
+</code></pre>
+
+<h3>Add required JS libraries</h3>
+
+<p>Add on your package.json file the Uppy JS libraries and AlpineJS library:</p>
+
+<pre><code class="language-javascript">    ...
+    "devDependencies": {
+        "alpinejs": "^2.7.3",
+        ...
+    },
+    "dependencies": {
+        "@uppy/aws-s3-multipart": "^1.8.12",
+        "@uppy/core": "^1.16.0",
+        "@uppy/drag-drop": "^1.4.24",
+        "@uppy/status-bar": "^1.9.0",
+        ...
+    }
+    ...
+</code></pre>
+
+<p>Add in your <code>resources/js/bootstrap.js</code> file:</p>
+
+<pre><code class="language-javascript">...
+
+require('@uppy/core/dist/style.min.css')
+require('@uppy/drag-drop/dist/style.min.css')
+require('@uppy/status-bar/dist/style.min.css')
+
+import Uppy from '@uppy/core'
+import DragDrop from '@uppy/drag-drop'
+import StatusBar from '@uppy/status-bar'
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
+
+window.Uppy = Uppy
+window.DragDrop = DragDrop
+window.StatusBar = StatusBar
+window.AwsS3Multipart = AwsS3Multipart
+</code></pre>
+
+<p>Add in your <code>resources/js/app.js</code>:</p>
+
+<pre><code class="language-javascript">...
+require('alpinejs');
+</code></pre>
+
+<p>Install JS libraries:</p>
+
+<pre><code>$ npm install
+$ npm run dev
+</code></pre>
+
+<h3>Publish config file</h3>
+
+<pre><code class="language-bash">php artisan vendor:publish --tag=uppy-s3-multipart-upload-config
+</code></pre>
+
+<h3>AWS S3 Setup</h3>
+
+<p>The package installs the AWS SDK for PHP and use Laravel's default s3 disk configuration from <code>filesystems.php</code> file.</p>
+
+<p>You just have to add your S3 keys, region, and bucket using the following env vars in your <code>.env</code> file:</p>
+
+<pre><code>AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=
+AWS_BUCKET=
+AWS_URL="https://s3.amazonaws.com"
+AWS_POST_END_POINT="https://${AWS_BUCKET}.s3.amazonaws.com/"
+</code></pre>
+
+<p>To allow direct multipart uploads to your S3 bucket, you need to add some extra configuration on bucket's CORS configuration. On your AWS S3 console, select your bucket. Click on "Permissions" tab. On "CORS configuration" add the following configuration:</p>
+
+<pre><code>[
+    {
+        "AllowedHeaders": [
+            "Authorization",
+            "x-amz-date",
+            "x-amz-content-sha256",
+            "content-type"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE",
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ]
+    }
+]
+</code></pre>
+
+<p>On AllowedOrigins:</p>
+
+<pre><code>"AllowedOrigins": [
+    "*"
+]
+</code></pre>
+
+<p>You should list the URLs allowed, e.g.:</p>
+
+<pre><code>"AllowedOrigins": [
+    "https://example.com"
+]
+</code></pre>
+
+<h2>Using</h2>
+
+<p>To begin uploading files, simply add a hidden field that will receive the S3 URL of the uploaded file, and the uppy blade component to your form in your view file:</p>
+
+<pre><code class="language-html">&lt;input type="hidden" name="file" id="file" /&gt;
+&lt;x-input.uppy /&gt;
+</code></pre>
+
+<p>Now you're ready to start uploading big files directly to S3!</p>
+
+<p><img src="/assets/img/upload-large-files-s3.png" alt="File uploaded" /></p>
+
+<h2>Let's break it down</h2>
+
+<p>You can also configure it to best suit your needs:</p>
+
+<h3>S3 Configuration</h3>
+
+<p>On the package configuration file (<code>/config/uppy-s3-multipart-upload.php</code>), you can setup:</p>
+
+<p><code>s3.bucket.folder</code> - the folder to store the uploaded files in your bucket</p>
+
+<p><code>s3.presigned_url.expiry_time</code> - the expiration time of the presigned URLs used to upload the parts</p>
+
+<pre><code>return [
+    's3' =&gt; [
+        'bucket' =&gt; [
+            /*
+             * Folder on bucket to save the file
+             */
+            'folder' =&gt; 'videos',
+        ],
+        'presigned_url' =&gt; [
+            /*
+             * Expiration time of the presigned URLs
+             */
+            'expiry_time' =&gt; '+30 minutes',
+        ],
+    ],
+];
+</code></pre>
+
+<h3>View and JS Configuration</h3>
+
+<h4>Customizing the <code>uppy</code> component</h4>
+
+<h5>Passing data</h5>
+
+<p>You can configure the <code>uppy</code> component by passing data to it:</p>
+
+<p><a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component">https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component</a></p>
+
+<h5>Changing the HTML and JS</h5>
+
+<p>First, publish it to your project with:</p>
+
+<pre><code class="language-bash">php artisan vendor:publish --tag=uppy-s3-multipart-upload-views
+</code></pre>
+
+<pre><code class="language-bash">Copied Directory [/vendor/tapp/laravel-uppy-s3-multipart-upload/resources/views]
+To [/resources/views/vendor/uppy-s3-multipart-upload]
+Publishing complete.
+</code></pre>
+
+<p>Now you can change the <code>/resources/views/vendor/uppy-s3-multipart-upload/components/input/uppy.blade.php</code> file.</p>
+
+<h4>Rewriting the view</h4>
+
+<p>You can write your own view and JS. The only required part is the Uppy's <code>AwsS3Multipart</code> as follows:</p>
+
+<pre><code class="language-javascript">    Uppy
+      .use(AwsS3Multipart, {
+          companionUrl: '/',
+          companionHeaders:
+          {
+              'X-CSRF-TOKEN': window.csrfToken,
+          },
+      })
+</code></pre>
+
+<h2>Sample App</h2>
+
+<p>Here's a <a href="https://github.com/andreia/laravel-uppy-upload-app">sample Laravel app</a> to demonstrate the package usage.</p>
+
+<h2>That's all folks!</h2>
+
+<p>This is the pre-release of the package and it has more features to add :)</p>
+
+<p>I would really love to hear your feedback!</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor" />
+    <title>Using Rollbar with Vapor</title>
+    <published>2021-01-25T00:00:00+00:00</published>
+    <updated>2021-01-25T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">How to get Rollbar working with Vapor...</summary>
+    <content type="html"><![CDATA[
+        <p>As I couldn't find on docs, maybe this will help someone to save time :)</p>
+
+<p>You'll only have to change a few configurations to get <a href="https://rollbar.com">Rollbar</a> working with <a href="https://vapor.laravel.com/">Vapor</a>.</p>
+
+<p>On your <code>.env.production</code> add this env var:</p>
+
+<pre><code class="language-php">LOG_CHANNEL=vapor
+</code></pre>
+
+<p>And in your Laravel <code>logging</code> config:</p>
+
+<pre><code class="language-php">// config/logging.php
+
+return [
+       'channels' =&gt; [
+            'vapor' =&gt; [
+                'driver'            =&gt; 'stack',
+                'channels'          =&gt; ['rollbar', 'stderr'],
+                'ignore_exceptions' =&gt; false,
+            ],
+
+            'rollbar' =&gt; [
+                'driver'        =&gt; 'monolog',
+                'handler'       =&gt; \Rollbar\Laravel\MonologHandler::class,
+                'access_token'  =&gt; env('ROLLBAR_TOKEN'),
+                'level'         =&gt; 'debug',
+                'person_fn'     =&gt; 'Auth::user',
+                'capture_email' =&gt; true,
+            ],
+        ],
+];
+</code></pre>
+
+<blockquote>
+  <p>Found this similar solution on <a href="https://flareapp.io/docs/ignition-for-laravel/installation#using-flare-on-vapor">Flare config</a> :)</p>
+</blockquote>
+    ]]></content>
+</entry>
+    </feed>
