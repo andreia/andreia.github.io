@@ -91,7 +91,7 @@ $ npm run dev
 ### Publish config file
 
 ```bash
-php artisan vendor:publish --provider="Tapp\LaravelUppyS3MultipartUpload\LaravelUppyS3MultipartUploadServiceProvider" --tag="laravel-uppy-s3-multipart-upload-config"
+php artisan vendor:publish --tag=uppy-s3-multipart-upload-config
 ```
 
 ### AWS S3 Setup
@@ -157,7 +157,7 @@ You should list the URLs allowed, e.g.:
 To begin uploading files, simply add a hidden field that will receive the S3 URL of the uploaded file, and the uppy blade component to your form in your view file:
 
 ```html
-<input type="hidden" name="image_url" id="image_url" />
+<input type="hidden" name="file" id="file" />
 <x-input.uppy />
 ```
 
@@ -212,16 +212,16 @@ You can configure the `uppy` component by passing data to it:
 First, publish it to your project with:
 
 ```bash
-php artisan vendor:publish --provider="Tapp\LaravelUppyS3MultipartUpload\LaravelUppyS3MultipartUploadServiceProvider" --tag="laravel-uppy-s3-multipart-upload-views"
+php artisan vendor:publish --tag=uppy-s3-multipart-upload-views
 ```
 
 ```bash
 Copied Directory [/vendor/tapp/laravel-uppy-s3-multipart-upload/resources/views]
- To [/resources/views/vendor/laravel-uppy-s3-multipart-upload]
+To [/resources/views/vendor/uppy-s3-multipart-upload]
 Publishing complete.
 ```
 
-Now you can change the `/resources/views/vendor/laravel-uppy-s3-multipart-upload/components/input/uppy.blade.php` file.
+Now you can change the `/resources/views/vendor/uppy-s3-multipart-upload/components/input/uppy.blade.php` file.
 
 #### Rewriting the view
 
@@ -237,6 +237,10 @@ You can write your own view and JS. The only required part is the Uppy's `AwsS3M
           },
       })
 ```
+
+## Sample App
+
+Here's a [sample Laravel app](https://github.com/andreia/laravel-uppy-upload-app) to demonstrate the package usage.
 
 ## That's all folks!
 
