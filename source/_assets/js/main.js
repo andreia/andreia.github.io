@@ -1,7 +1,7 @@
 window.axios = require('axios');
 
 import Fuse from 'fuse.js';
-import Vue from 'vue';
+import { createApp } from 'vue';
 import Search from './components/Search.vue';
 import hljs from 'highlight.js/lib/core';
 import VueDisqus from 'vue-disqus';
@@ -20,15 +20,11 @@ hljs.registerLanguage('scss', require('highlight.js/lib/languages/scss'));
 hljs.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
 
 document.querySelectorAll('pre code').forEach((block) => {
-    hljs.highlightBlock(block);
+    hljs.highlightElement(block);
 });
 
-Vue.config.productionTip = false;
+const app = createApp({});
 
-Vue.use(VueDisqus);
-
-new Vue({
-    components: {
-        Search,
-    },
-}).$mount('#app');
+app.component('search', Search);
+app.use(VueDisqus);
+app.mount('#app');
