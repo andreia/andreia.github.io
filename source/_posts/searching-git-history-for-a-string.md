@@ -21,9 +21,9 @@ Let's get started!
 
 ## Commands available to Search Through Git History
 
-We can investigate Git history to search for a string using the [git log](https://git-scm.com/docs/git-log), [git show](https://git-scm.com/docs/git-show), and [git diff](https://git-scm.com/docs/git-diff) commands (along with [git diff-files](https://git-scm.com/docs/git-diff-files), [git diff-index](https://git-scm.com/docs/git-diff-index), and [git diff-tree](https://git-scm.com/docs/git-diff-tree)).
+We can investigate Git history using [git log](https://git-scm.com/docs/git-log), [git show](https://git-scm.com/docs/git-show), and [git diff](https://git-scm.com/docs/git-diff) commands (also [git diff-files](https://git-scm.com/docs/git-diff-files), [git diff-index](https://git-scm.com/docs/git-diff-index), and [git diff-tree](https://git-scm.com/docs/git-diff-tree)).
 
-These commands offer two options that can be used to search in Git history:
+These commands offer two options that can be used to search:
 
 **`-S <string>`**            search using a string  <br />
 **`-G <regular expression>`**   search using a regular expression 
@@ -145,7 +145,6 @@ Display commits in a single line:
 git log -S "debugMode" --oneline
 ```
 
-
 ## Other Git Gadgets for our Search Toolbox
 
 ### git grep
@@ -182,7 +181,7 @@ git show 1a2b3c4d
 
 ### git diff -S
 
-Want to see the difference between two commits where a specific string is involved? `git diff -S` is our trusty magnifying glass.
+`git diff -S` is our trusty magnifying glass to see the difference between two commits where a specific string is involved.
 
 For example, to compare changes involving `"debugMode"` between two commits, execute this command:
 
