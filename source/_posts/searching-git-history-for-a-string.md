@@ -6,7 +6,7 @@ date: 2024-06-22
 description: Discover hidden gems or unravel the mystery of the deepest issues on Git history by using the pickaxe option to search for a string or regex.
 cover_image: /assets/img/post_cover_detective.jpg
 categories: [git]
-featured: true
+featured: false
 excerpt: Discover hidden gems or unravel the mystery of the deepest issues by using the pickaxe option in Git to search for a string or regex.
 comments: true
 ---
