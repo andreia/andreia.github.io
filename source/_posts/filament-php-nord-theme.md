@@ -7,7 +7,7 @@ description: Introducing the Arctic Nord Theme for Filament PHP.
 cover_image: /assets/img/post-cover-filament-nord-theme.jpg
 categories: [filament, laravel]
 featured: true
-excerpt: Add a bluetiful clean and elegant touch of arctic colors to your Filament PHP apps.
+excerpt: Add a bluetiful touch of arctic colors to your Filament PHP apps.
 comments: true
 ---
 
