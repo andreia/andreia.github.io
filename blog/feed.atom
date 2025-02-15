@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Andréia Bohner</title>
+    <link href="https://andreia.github.io/blog" />
+    <link type="application/atom+xml" rel="self" href="https://andreia.github.io/blog/feed.atom" />
+    <updated>2025-02-15T23:17:46+00:00</updated>
+    <id>https://andreia.github.io/blog/feed.atom</id>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+                <entry>
+    <id>https://andreia.github.io/blog/2025-02-09/filament-php-nord-theme</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2025-02-09/filament-php-nord-theme" />
+    <title>Arctic Nord Theme for Filament PHP</title>
+    <published>2025-02-09T00:00:00+00:00</published>
+    <updated>2025-02-09T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Add a bluetiful touch of arctic colors to your Filament PHP apps....</summary>
+    <content type="html"><![CDATA[
+        <p>The Filament PHP ecosystem just got a fresh new look! I'm excited to introduce the <a href="https://github.com/andreia/filament-nord-theme">Nord Theme for Filament PHP</a>. This beautifully designed theme features both light and dark modes and is inspired by the popular <a href="https://www.nordtheme.com/docs/colors-and-palettes">Nord color palette</a>.
+If you're looking for a clean, stylish, and visually soothing user interface for your Filament applications, this theme is your perfect match! ❄️ ⛄</p>
+
+<h2>Why the Nord Theme?</h2>
+
+<p><a href="https://www.nordtheme.com/">Nord</a> is a beloved color palette derived from the icy blues, snowy tones of the Arctic and the mesmerizing hues of the Aurora Borealis. Designed for optimal readability and minimal eye strain, it blends Nordic aesthetics with cool, calming, and balanced dimmed pastel tones making it a ideal choice for a modern and elegant UI.</p>
+
+<p><a href="https://www.nordtheme.com/docs/colors-and-palettes"><img src="/assets/img/nord-theme/nord_palettes.jpg" alt="Nord theme palettes" /></a></p>
+
+<p>This is the Filament Nord theme custom gray palette used to match the Nord's Polar Night and Snow Storm colors:</p>
+
+<p><a href="/assets/img/nord-theme/custom-gray-palette.png"><img src="/assets/img/nord-theme/custom-gray-palette.png" alt="Custom Filament gray palette" /></a></p>
+
+<h2>Features of the Filament Nord Theme</h2>
+
+<p>🌙 Light and Dark Modes – Seamlessly switch between light and dark themes.</p>
+
+<p>🎨 Consistent Nord Palette – Every UI element is carefully styled to match the Nord theme.</p>
+
+<p>⚡ Easy Installation – Quickly set up the theme in your Filament project.</p>
+
+<h2>Installation</h2>
+
+<p>Getting started with the Filament Nord Theme is simple. You can install it via Composer:</p>
+
+<pre><code class="language-bash">composer require andreia/filament-nord-theme
+</code></pre>
+
+<p>To install the theme's required JS libraries (the forms, typography TailwindCSS plugins, and also postcss and autoprefixer) and create the postcss.config.js file if it not exists yet, run:</p>
+
+<pre><code class="language-bash">php artisan filament-nord-theme:install
+</code></pre>
+
+<p>Add a new item to the input array of your <code>vite.config.js</code> file:</p>
+
+<pre><code class="language-php">'vendor/andreia/filament-nord-theme/resources/css/theme.css'
+</code></pre>
+
+<p>Compile the assets with:</p>
+
+<pre><code class="language-bash">npm run build
+</code></pre>
+
+<p>Register the plugin on your panel (e.g. <code>/app/Providers/Filament/AdminPanelProvider.php</code>):</p>
+
+<pre><code class="language-php">use Andreia\FilamentNordTheme\FilamentNordThemePlugin;
+
+$panel
+  -&gt;plugin(FilamentNordThemePlugin::make())
+</code></pre>
+
+<p>You are all set!</p>
+
+<h2>Theme Preview</h2>
+
+<p>Here's a preview of what the <a href="https://github.com/filamentphp/demo">Filament demo project</a> looks like with the Nord Theme applied:</p>
+
+<p><a href="https://www.youtube.com/watch?v=8rdonWoUb5s" title="Click to watch the theme preview"><img src="/assets/img/nord-theme/filament_nord_theme.jpg" alt="Filament Nord Theme preview" /></a></p>
+
+<h2>Screenshots</h2>
+
+<p>Every detail is carefully thought out to create a eye-comfortable, and clean feeling.</p>
+
+<p><img src="/assets/img/nord-theme/rounded-dark.png" alt="Rounded corners dashboard widgets dark" /></p>
+
+<p><img src="/assets/img/nord-theme/rounded-light.png" alt="Rounded corners dashboard widgets light" /></p>
+
+<p><img src="/assets/img/nord-theme/rounded-light1.png" alt="Rounded corners buttons light" /></p>
+
+<p><img src="/assets/img/nord-theme/rounded-light2.png" alt="Rounded corners button and widgets light" /></p>
+
+<h3>Dashboard</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Dashboard Light</th>
+      <th scope="col" width="1000px">Dashboard Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/dashboard_light.png" width="100%" alt="Dashboard Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/dashboard_dark.png" width="100%" alt="Dashboard Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>User Menu</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">User Menu Light</th>
+      <th scope="col" width="1000px">User Menu Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/user_menu_light.png" width="100%" alt="User Menu Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/user_menu_dark.png" width="100%" alt="User Menu Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Product</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Create Product Light</th>
+      <th scope="col" width="1000px">Create Product Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/product_create_light.png" width="100%" alt="Create Product Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/product_create_dark.png" width="100%" alt="Create Product Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Order</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Order List Light</th>
+      <th scope="col" width="1000px">Order List Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/orders_light.png" width="100%" alt="Order List Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/orders_dark.png" width="100%" alt="Order List Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Create Order Light</th>
+      <th scope="col" width="1000px">Create Order Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/order_create_light.png" width="100%" alt="Create Order Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/order_create_dark.png" width="100%" alt="Create Order Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Conclusion</h2>
+
+<p>The Nord Theme for Filament PHP brings a sleek, modern look to your Filament app with a focus on a clean design and aesthetics. It provides both a dark a light mode and it can be easily applied to your existing app.</p>
+
+<p>Give it a try and let me know your thoughts! You can find the project on <a href="https://github.com/andreia/filament-nord-theme">GitHub: Filament Nord Theme</a>.</p>
+
+<p>Happy theming! 💛 ✨</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2024-07-07/reusing-resource-code-in-relation-manager</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2024-07-07/reusing-resource-code-in-relation-manager" />
+    <title>Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers</title>
+    <published>2024-07-07T00:00:00+00:00</published>
+    <updated>2024-07-07T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Streamlining your Filament code by reusing the resource&#039;s form, table, and infolist in your relation managers...</summary>
+    <content type="html"><![CDATA[
+        <p>If your relation manager matches the form, table, and infolist of the resource, you can reuse the code you wrote for your resource in your relation manager. This will save you time and effort while keeping your application consistent and error-free.</p>
+
+<p>Let's check out an example of how to implement it.</p>
+
+<p>Here's a simplified version of a Filament address resource that we are going to reuse the code:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\AddressResource\Pages;
+use App\Models\Address;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+
+class AddressResource extends Resource
+{
+    protected static ?string $model = Address::class;
+
+    protected static ?string $navigationGroup = 'User';
+
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            -&gt;schema([
+                Infolists\Components\TextEntry::make('street'),
+                Infolists\Components\TextEntry::make('zip'),
+                Infolists\Components\TextEntry::make('city'),
+                Infolists\Components\TextEntry::make('state'),
+                Infolists\Components\TextEntry::make('country.name'),
+            ]);
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            -&gt;schema([
+                Forms\Components\TextInput::make('street'),
+                Forms\Components\TextInput::make('zip'),
+                Forms\Components\TextInput::make('city'),
+                Forms\Components\TextInput::make('state'),
+                Forms\Components\Select::make('country')
+                    -&gt;searchable(),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            -&gt;columns([
+                Tables\Columns\TextColumn::make('street'),
+                Tables\Columns\TextColumn::make('zip'),
+                Tables\Columns\TextColumn::make('city'),
+                Tables\Columns\TextColumn::make('country.name'),
+            ])
+            -&gt;filters([
+                //
+            ])
+            -&gt;actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+            ])
+            -&gt;groupedBulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
+    }
+}
+</code></pre>
+
+<p>Once the resource has been created and is all set, we can now tell Filament to reuse our form, table, and infolist code in our <code>AddressesRelationManager</code>.</p>
+
+<p>This is done via calling the respective form (<code>AddressResource::form</code>), table (<code>AddressResource::table</code>), and infolist (<code>AddressResource::infolist</code>) methods that were defined on <code>AddressResource</code>:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Filament\Resources\UserResource\RelationManagers;
+
+use App\Filament\Resources\AddressResource;
+use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Table;
+
+class AddressesRelationManager extends RelationManager
+{
+    protected static string $relationship = 'addresses';
+
+    public function form(Form $form): Form
+    {
+        return AddressResource::form($form);
+    }
+
+    public function table(Table $table): Table
+    {
+        return AddressResource::table($table);
+    }
+
+    public function infolist(Infolist $infolist): Infolist
+    {
+        return AddressResource::infolist($infolist);
+    }
+}
+</code></pre>
+
+<p>We did it! That's all we need.</p>
+
+<p>Depending on your use case, you can decide to reuse just one of the methods (e.g. just the form) or all of them like in the code above.</p>
+
+<h2>Extra tip! Adding an action to the relation manager without overwriting the resource's original actions</h2>
+
+<p>Let's say you want to add a new table action just to the relation manager while keeping the resource's original table actions. You can achieve this by calling <code>$table-&gt;getActions()</code> to retrieve the resource's actions, and adding the extra actions (e.g. <code>DetachAction</code>) in your <code>actions</code> method (we can also apply the same for bulk actions):</p>
+
+<pre><code class="language-php">class AddressesRelationManager extends RelationManager
+{
+    // ...
+
+    public function table(Table $table): Table
+    {
+        return AddressResource::table($table)
+            -&gt;headerActions([
+                Tables\Actions\AttachAction::make(),
+                Tables\Actions\CreateAction::make(),
+            ])
+            -&gt;actions([
+                ...$table-&gt;getActions(),
+                Tables\Actions\DetachAction::make(),
+            ])
+            -&gt;bulkActions([
+                ...$table-&gt;getBulkActions(),
+                Tables\Actions\DetachBulkAction::make(),
+            ]);
+     }
+}
+</code></pre>
+
+<p>You can check out more about Filament's relation manager and its capabilities by <a href="https://filamentphp.com/docs/3.x/panels/resources/relation-managers#creating-a-relation-manager">visiting the Filament PHP documentation</a>.</p>
+
+<p>Thanks for reading and see you next time! :)</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2024-06-22/searching-git-history-for-a-string</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2024-06-22/searching-git-history-for-a-string" />
+    <title>Uncovering Code Mysteries - Exploring Git History with the Pickaxe Option</title>
+    <published>2024-06-22T00:00:00+00:00</published>
+    <updated>2024-06-22T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Discover hidden gems or unravel the mystery of the deepest issues by using the pickaxe option in Git to search for a string or regex....</summary>
+    <content type="html"><![CDATA[
+        <p>Hey there, code adventurer!</p>
+
+<p>Ready to dive into the depths of Git history? Grab your magnifying glass because we're going on a journey to uncover the hidden gems - or deepest issues - in our codebase! We're talking about the mighty <code>-S</code> and <code>-G</code> options (also known as the "pickaxe" options) that are available for certain git commands.</p>
+
+<p>In this article, we'll play code detective and check out some practical examples of using <code>git log</code> with the <code>-S</code> option to search on Git history for a string, along with other useful commands to complement our search.</p>
+
+<p>Let's get started!</p>
+
+<h2>Commands available to Search Through Git History</h2>
+
+<p>We can investigate Git history using <a href="https://git-scm.com/docs/git-log">git log</a>, <a href="https://git-scm.com/docs/git-show">git show</a>, and <a href="https://git-scm.com/docs/git-diff">git diff</a> commands (also <a href="https://git-scm.com/docs/git-diff-files">git diff-files</a>, <a href="https://git-scm.com/docs/git-diff-index">git diff-index</a>, and <a href="https://git-scm.com/docs/git-diff-tree">git diff-tree</a>).</p>
+
+<p>These commands offer two options that can be used to search:</p>
+
+<p><strong><code>-S &lt;string&gt;</code></strong>            search using a string  <br />
+<strong><code>-G &lt;regular expression&gt;</code></strong>   search using a regular expression</p>
+
+<blockquote>
+  <p><strong>Fun Fact</strong>: <a href="https://git-scm.com/docs/gitdiffcore#_diffcore_pickaxe_for_detecting_additiondeletion_of_specified_string">"pickaxe" is the Git term for searching for a string</a>. 
+  It's our tool for digging through the repository's history to uncover commits that originally introduced or removed a specific string. Think of it as your personal treasure map for finding those elusive changes buried deep within the code.</p>
+</blockquote>
+
+<h2>Using git log -S</h2>
+
+<p>The <code>git log -S</code> command helps search for commits that add or remove a given string. Here's how we wield this powerful tool:</p>
+
+<pre><code class="language-bash">git log -S &lt;string&gt;
+</code></pre>
+
+<p><strong>Example: Searching for "debugMode" String</strong></p>
+
+<p>Imagine we're on the trail of the elusive "debugMode". We suspect it's been causing some mischief in our code. Simply run:</p>
+
+<pre><code class="language-bash">git log -S "debugMode"
+</code></pre>
+
+<p>Voilà! Git will present a list of commits where "debugMode" popped in or out of existence:</p>
+
+<pre><code class="language-bash">commit 27129a38d460f8608e3fb4f3earau4r79498i723s
+Author: Dev &lt;dev@example.com&gt;
+Date:   Mon Nov 27 22:51:52 2023 -0300
+
+    Add debugging
+</code></pre>
+
+<h3>Mixing Options and Flags to Search Like a Pro</h3>
+
+<blockquote>
+  <p><strong>Clue</strong>: 
+  we can combine the plethora of options and flags available for
+  <code>git log</code>, <code>git show</code>, and <code>git diff</code> commands to create a supercharged search that meet our needs.</p>
+</blockquote>
+
+<p>Some examples:</p>
+
+<h4>Showing the Branch</h4>
+
+<p>Show the branch where the string it's lurking in by combining the <code>-S</code> option with the <code>--source --all</code> flags:</p>
+
+<pre><code class="language-bash">git log -S "debugMode" --source --all
+</code></pre>
+
+<p>The branch name will be shown alongside the commit hash (<code>refs/heads/add_debugging</code> in our example below) :</p>
+
+<pre><code class="language-bash">commit 27129a38d460f8608e3fb4f3earau4r79498i723s refs/heads/add_debugging
+Author: Dev &lt;dev@example.com&gt;
+Date:   Mon Nov 27 22:51:52 2023 -0300
+
+    Add debugging
+</code></pre>
+
+<h4>Case Insensitive Search</h4>
+
+<p>The <code>-i</code> or <code>--regexp-ignore-case</code> flags can be used to perform a case-insensitive search and catch those sneaky strings that try to hide by changing their case:</p>
+
+<pre><code class="language-bash">git log --regexp-ignore-case -S "debugMode"
+</code></pre>
+
+<p>or</p>
+
+<pre><code class="language-bash">git log -i -S "debugMode"
+</code></pre>
+
+<h4>Unveiling the Full Story</h4>
+
+<p>To reveal the complete diff of what was changed, use one of these sleuthing commands:</p>
+
+<pre><code class="language-bash">git log -S "debugMode" --source --all --color -p
+</code></pre>
+
+<p>or</p>
+
+<pre><code class="language-bash">git log -S "debugMode" -p --pickaxe-all 
+</code></pre>
+
+<p>They will display every detail of the changes coloring the clues to make the story crystal clear.</p>
+
+<h4>Time-Traveling Detective Work</h4>
+
+<p>To only show the results from a specific time period, we can use:</p>
+
+<pre><code class="language-bash">git log -S "debugMode" --since="2 weeks ago"
+</code></pre>
+
+<p>It will take we back in time to track down changes made in the last two weeks.</p>
+
+<h4>More Useful Git Options</h4>
+
+<p>Useful Git options that can be used together with the previous ones:</p>
+
+<p>Find commits by a specific author that introduced "debugMode":</p>
+
+<pre><code class="language-bash">git log -S "debugMode" --author="Grace Hopper"
+</code></pre>
+
+<p>Limit the search to a specific file or directory to narrow down the treasure hunt:</p>
+
+<pre><code class="language-bash">git log -S "debugMode" -- path/to/file.php
+</code></pre>
+
+<p>Display commits in a single line:</p>
+
+<pre><code class="language-bash">git log -S "debugMode" --oneline
+</code></pre>
+
+<h2>Other Git Gadgets for our Search Toolbox</h2>
+
+<h3>git grep</h3>
+
+<p>While <code>git log -S</code> digs through the Git history, <a href="https://git-scm.com/docs/git-grep">git grep</a> is our go-to for finding occurrences of a string in the current working directory. By default, it uses posix regex.</p>
+
+<pre><code class="language-bash">git grep -l "debugMode" -- src
+</code></pre>
+
+<p>The command above will search for "debugMode" only on <code>src</code> directory of our working directory, displaying just the name of the files (<code>-l</code> flag) that contain matches.</p>
+
+<h3>git log -G</h3>
+
+<p>For when we need to get fancy with regular expressions. The <code>-G</code> option in <code>git log</code> searches for commits that introduce or remove lines matching a given regex. It's the same as <code>git log -S</code> with a sprinkle of regex spice.</p>
+
+<pre><code class="language-bash">git log -G "debugMode\s*="
+</code></pre>
+
+<h3>git show</h3>
+
+<p>Once we've found the commit of our dreams (or nightmares), we can use <a href="https://git-scm.com/docs/git-show">git show</a> to reveal its secrets.</p>
+
+<pre><code class="language-bash">git show &lt;commit-hash&gt;
+</code></pre>
+
+<p>For example:</p>
+
+<pre><code class="language-bash">git show 1a2b3c4d
+</code></pre>
+
+<h3>git diff -S</h3>
+
+<p><code>git diff -S</code> is our trusty magnifying glass to see the difference between two commits where a specific string is involved.</p>
+
+<p>For example, to compare changes involving <code>"debugMode"</code> between two commits, execute this command:</p>
+
+<pre><code class="language-bash">git diff -S "debugMode" &lt;commit-hash1&gt; &lt;commit-hash2&gt;
+</code></pre>
+
+<h2>Practical Examples</h2>
+
+<p>Some real-world scenarios where we can use our new Git superpowers:</p>
+
+<h4>Spotting the Root Cause of a Bug</h4>
+
+<p>Suspect a bug crept in with a variable change? Hunt it down!</p>
+
+<pre><code class="language-bash">git log -S "buggyVariable"
+</code></pre>
+
+<h4>Tracking Feature Changes</h4>
+
+<p>Curious when a feature appeared or was changed? Follow the breadcrumb trail:</p>
+
+<pre><code class="language-bash">git log -S "newFeatureFunction"
+</code></pre>
+
+<h4>Analyzing Code Evolution</h4>
+
+<p>Understand how a part of our code evolved over time by combining these options:</p>
+
+<pre><code class="language-bash">git log -S "criticalFunction" --since="2023-01-01" --until="2023-12-31"
+</code></pre>
+
+<h4>Comparing Changes Between Commits</h4>
+
+<p>See how a specific string has changed between two points in time:</p>
+
+<pre><code class="language-bash">git diff -S "criticalFunction" abc1234 def5678
+</code></pre>
+
+<h4>Identifying Code Removals</h4>
+
+<p>Find out when a piece of code disappeared:</p>
+
+<pre><code class="language-bash">git log -S "removedFunction"
+</code></pre>
+
+<p>Then, use the commit hash displayed to reveal its details:</p>
+
+<pre><code class="language-bash">git show &lt;commit-hash&gt;
+</code></pre>
+
+<h2>Conclusion</h2>
+
+<p>Being a code detective is a lot of fun, especially when we have tools like <code>git log -S</code> in our toolkit. 
+So now that we are equipped with the pickaxe options and our other Git gadgets, we can kick off a thrilling quest to unlock the mysteries behind the code. Happy exploring!</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2024-06-15/filament-php-blade-ui-components-visually-explained</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2024-06-15/filament-php-blade-ui-components-visually-explained" />
+    <title>Filament PHP Blade UI Components Visually Explained</title>
+    <published>2024-06-15T00:00:00+00:00</published>
+    <updated>2024-06-15T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Visual references for each Filament PHP Blade UI component available for your view....</summary>
+    <content type="html"><![CDATA[
+        <p>In addition to the awesome full-stack components that Filament provides, <a href="https://filamentphp.com/docs/3.x/support/blade-components/overview">some UI components</a> are also available to be used independently on your Blade view files.</p>
+
+<p>I've been working on creating references to easily visualize these Blade UI components. Here's the series of Filament references. Enjoy!</p>
+
+<blockquote>
+  <p>Click on the images to get a PDF version. You can also view/download the images and PDFs on <a href="https://github.com/andreia/filamentphp-guides/tree/main/references">this GitHub repository</a>.</p>
+</blockquote>
+
+<h2>Components Overview</h2>
+
+<p><a href="https://github.com/andreia/filamentphp-guides/blob/main/references/filament_blade_ui_components_overview.pdf"><img src="/assets/img/filament_blade_ui_components_overview.png" alt="Blade UI Components Overview" /></a></p>
+
+<h2>Components for Layout</h2>
+
+<p>Include the components: Avatar, Badge, Breadcrumbs, Loading indicator, Section, and Tabs.</p>
+
+<p><a href="https://github.com/andreia/filamentphp-guides/blob/main/references/filament_blade_ui_components_part1_layout.pdf"><img src="/assets/img/filament_blade_ui_components_part1_layout.png" alt="Blade UI Components For Layout" /></a></p>
+
+<h2>Components for Actions</h2>
+
+<p>Include the components that can be used on your actions: Button, Dropdown, Icon button, Link, and Modal.</p>
+
+<p><a href="https://github.com/andreia/filamentphp-guides/blob/main/references/filament_blade_ui_components_part2_actions.pdf"><img src="/assets/img/filament_blade_ui_components_part2_actions.png" alt="Blade UI Components For Actions" /></a></p>
+
+<h2>Components for Forms</h2>
+
+<p>Include the components that can be used on your forms: Checkbox, Radio, Fieldset, Input, Input wrapper, and Select.</p>
+
+<p><a href="https://github.com/andreia/filamentphp-guides/blob/main/references/filament_blade_ui_components_part3_forms.pdf"><img src="/assets/img/filament_blade_ui_components_part3_forms.png" alt="Blade UI Components For Forms" /></a></p>
+
+<h2>Components for Tables</h2>
+
+<p>Include the components that can be used on your tables: table elements (cell, row, header, ...), and Pagination.</p>
+
+<p><a href="https://github.com/andreia/filamentphp-guides/blob/main/references/filament_blade_ui_components_part4_tables.pdf"><img src="/assets/img/filament_blade_ui_components_part4_tables.png" alt="Blade UI Components For Tables" /></a></p>
+
+<p>I hope they've come in handy for your projects!</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-06-19/how-to-test-stripe-webhooks-locally-with-laravel-homestead-and-ngrok</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-06-19/how-to-test-stripe-webhooks-locally-with-laravel-homestead-and-ngrok" />
+    <title>How to test Stripe webhooks locally with Laravel, Homestead, and ngrok</title>
+    <published>2021-06-19T00:00:00+00:00</published>
+    <updated>2021-06-19T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">In this tutorial, we are going to learn how to use ngrok and Laravel to handle Stripe webhooks really nicely in our local environment....</summary>
+    <content type="html"><![CDATA[
+        <p>To be able to test <a href="https://stripe.com/docs/webhooks">Stripe webhooks</a> locally, we need to expose our local app to the internet. We can do this using tools like <a href="https://ngrok.com/">ngrok</a> or <a href="https://stripe.com/docs/stripe-cli">Stripe CLI</a>.</p>
+
+<p>When using Laravel's <a href="https://laravel.com/docs/8.x/billing#handling-stripe-webhooks">Cashier</a> (or <a href="https://spark.laravel.com/docs/1.x/spark-stripe/customization.html#webhooks">Spark</a>) together with ngrok, this integration works like a charm!
+We are going to see how to set up everything in this tutorial. Let's dig in.</p>
+
+<h2>Configuring the webhook on Laravel</h2>
+
+<h3>Adding the webhook handler</h3>
+
+<p>First, we'll add our own controller that will handle the Stripe events. Let's call it <code>StripeWebhookController</code>.
+This controller will extend Cashier's <code>WebhookController</code> (or <a href="https://spark.laravel.com/docs/1.x/spark-stripe/customization.html#webhooks">Spark</a>, if you are using it) that already provide us with <a href="https://laravel.com/docs/8.x/billing#defining-webhook-event-handlers">useful methods to handle Stripe events</a>.</p>
+
+<p>An implementation extending Cashier would look like this:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
+use Symfony\Component\HttpFoundation\Response;
+
+class StripeWebhookController extends CashierController
+{
+    /**
+     * Handle customer subscription updated.
+     *
+     * @param  array  $payload
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function handleCustomerSubscriptionUpdated(array $payload)
+    {
+        $customer = $payload['data']['object']['customer'];
+
+        // handle the incoming event...
+
+        return new Response('Webhook Handled', 200);
+    }
+}
+</code></pre>
+
+<p>By extending Cashier's <code>WebhookController</code> we can handle Stripe events following this pattern to name the methods:</p>
+
+<blockquote>
+  <p>Camel case version of the Stripe event we want to handle, prefixed by the word <code>handle</code>.</p>
+</blockquote>
+
+<p>E.g.: the method <code>handleCustomerSubscriptionUpdated(array $payload)</code> will handle the <a href="https://stripe.com/docs/api/events/types#event_types-customer.subscription.updated"><code>customer.subscription.updated</code></a> Stripe event.</p>
+
+<p><img src="/assets/img/stripe_event1.png" alt="Stripe Event" /></p>
+
+<p>All possible Stripe events are <a href="https://stripe.com/docs/api/events/types">listed here</a>.</p>
+
+<h3>Adding the webhook routes</h3>
+
+<p>By default, Cashier's webhook controller responds to the <code>/stripe/webhook</code> URL path, and Spark to <code>/spark/webhook</code>.
+However, the route can be named whatever is suitable for you.</p>
+
+<p>To use the <code>webhooks/stripe</code> route for our <code>StripeWebhookController</code> controller, add the following in your <code>route/web.php</code> file:</p>
+
+<pre><code class="language-php">use App\Http\Controllers\StripeWebhookController;
+
+Route::post('webhooks/stripe', 'StripeWebhookController@handleWebhook');
+</code></pre>
+
+<p>Cashier's <code>handleWebhook</code> method is the main entry point. This is the <a href="https://github.com/laravel/cashier-stripe/blob/12.x/src/Http/Controllers/WebhookController.php#L40-L56">method's content</a>:</p>
+
+<pre><code class="language-php">/**
+ * Handle a Stripe webhook call.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Symfony\Component\HttpFoundation\Response
+ */
+public function handleWebhook(Request $request)
+{
+    $payload = json_decode($request-&gt;getContent(), true);
+    $method = 'handle'.Str::studly(str_replace('.', '_', $payload['type']));
+
+    WebhookReceived::dispatch($payload);
+
+    if (method_exists($this, $method)) {
+        $response = $this-&gt;{$method}($payload);
+
+        WebhookHandled::dispatch($payload);
+
+        return $response;
+    }
+
+    return $this-&gt;missingMethod($payload);
+}
+
+</code></pre>
+
+<h3>Disable CSRF for Stripe webhook URLs</h3>
+
+<p>Disable CSRF for Stripe webhook routes in the <code>app/Http/Middleware/VerifyCsrfToken.php</code> middleware:</p>
+
+<pre><code class="language-php">protected $except = [
+    'webhooks/stripe',
+];
+</code></pre>
+
+<p>You can read more about it in the <a href="https://laravel.com/docs/8.x/billing#webhooks-csrf-protection">documentation here</a>.</p>
+
+<h2>Setting up ngrok</h2>
+
+<p>Let's now set up our ngrok and try this out!</p>
+
+<p><a href="https://ngrok.com/download">Download ngrok</a> and follow the installation instructions for your OS:</p>
+
+<p><a href="https://ngrok.com/download"><img src="/assets/img/ngrok_install.png" alt="ngrok install" /></a></p>
+
+<h4>1. Unzip ngrok</h4>
+
+<h4>2. Set up ngrok executable</h4>
+
+<p><strong>On Linux:</strong></p>
+
+<p>On your terminal, copy <code>ngrok</code> to <code>/usr/bin</code>.</p>
+
+<p><strong>On Windows:</strong></p>
+
+<p>Execute <code>ngrok.exe</code>. It will open a new terminal.</p>
+
+<h4>3. Start a tunnel to your local app</h4>
+
+<p>Start a HTTP tunnel to your local application (you can specify your app URL - e.g. <code>my-app.local</code> - with the <code>-host-header</code> option), by running:</p>
+
+<pre><code class="language-php">ngrok http 192.168.10.10 -host-header=my-app.local
+</code></pre>
+
+<blockquote>
+  <p>The example above is for Homestead with the default IP (<code>192.168.10.10</code>)</p>
+</blockquote>
+
+<p>You should now see the <code>HTTPs</code> and <code>HTTP</code> ngrok public URLs to your local app in <code>Forwarding</code>.</p>
+
+<p>They would look something like this:</p>
+
+<p><img src="/assets/img/ngrok.png" alt="ngrok" /></p>
+
+<p>We need to add this public URL to the Stripe dashboard.</p>
+
+<p>Copy the desired ngrok URL (<code>https</code> or <code>http</code>) appending the webhook route we added before (<code>/webhooks/stripe</code>) at the end, like this:</p>
+
+<pre><code class="language-bash">https://0a0972dc0950.ngrok.io/webhooks/stripe
+</code></pre>
+
+<p>This is our <em>webhook URL</em>.</p>
+
+<h2>Configuring the webhook on Stripe dashboard</h2>
+
+<p>Let's go ahead and add our <em>webhook URL</em> to the <a href="https://dashboard.stripe.com/">Stripe dashboard</a>:</p>
+
+<p>On left menu, go to <code>Developers &gt; Webhooks</code>.</p>
+
+<p><img src="/assets/img/stripe_menu.png" alt="Developers > Webhooks" /></p>
+
+<p>Click on the <code>Add endpoint</code> button located on top right.</p>
+
+<p><img src="/assets/img/stripe_endpoint.png" alt="Add endpoint" /></p>
+
+<p>Add the <em>webhook URL</em> to the <code>Endpoint URL</code> field.</p>
+
+<p>On <code>Events to send</code> select the events you want to handle, and click on <code>Add endpoint</code>.</p>
+
+<p><img src="/assets/img/stripe_dashboard1.png" alt="Stripe dashboard" /></p>
+
+<p>Copy the <strong>"Signing secret"</strong> value. It will be used in the next step below.</p>
+
+<p><img src="/assets/img/stripe_dashboard.png" alt="Stripe Dashboard" /></p>
+
+<h2>Adding the signing secret to our app</h2>
+
+<p>The remaining step is to update the <code>STRIPE_WEBHOOK_SECRET</code> env var with the value of <strong>"Signing secret"</strong> on the <code>.env</code> file.</p>
+
+<p>E.g:</p>
+
+<pre><code class="language-bash">STRIPE_WEBHOOK_SECRET=whsec_2ARB5nXLZ87gTHv7mYDvIQylTq7qEniu
+</code></pre>
+
+<p>To update this config value run:</p>
+
+<pre><code class="language-bash">php artisan config:clear
+</code></pre>
+
+<p>That's it. You're now all set to play with webhooks locally :)</p>
+
+<p>Update a Stripe subscription in your app and you'll see the webhook received on ngrok CLI and the code in your controller should be handled.
+You can also check the event on Stripe dashboard under <strong>"Webhook attempts"</strong> where you'll find detailed information, including the payload.</p>
+
+<blockquote>
+  <p>You can test the webhook on Stripe dashboard as well by clicking on the <code>Send test webhook</code> button located on the top right (in <code>Developers &gt; Webhooks</code>)</p>
+</blockquote>
+
+<p><img src="/assets/img/stripe_test.png" alt="Webhook test" /></p>
+
+<p>I'm happy to take any questions you have in the comments section below.</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages" />
+    <title>Quick reference on installing Composer packages from different sources</title>
+    <published>2021-02-28T00:00:00+00:00</published>
+    <updated>2021-02-28T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">A quick reference on how to configure composer.json to install a package from: local directory, GitHub repository, or Packagist....</summary>
+    <content type="html"><![CDATA[
+        <p>A quick reference on how to configure <code>composer.json</code> to install a package from these sources: local directory, GitHub repository, or Packagist.</p>
+
+<h2>Install a Local Package</h2>
+
+<p>Require a local package on your <code>composer.json</code> by adding on <code>repositories</code> key <code>"type": "path"</code> and providing the directory of your package in <code>url</code>:</p>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "my/format-converter": "*"
+  },
+
+  "repositories": [
+      ...
+      {
+          "type": "path",
+          "url": "./packages/format-converter"
+      }
+  ],
+</code></pre>
+
+<h2>Install a Package Directly from GitHub Repository (or other VCS)</h2>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "my/package-name": "dev-main"
+  },
+
+  "repositories": [
+    ...
+    {
+        "type": "vcs",
+        "url": "https://github.com/my/package-name"
+    }
+  ],
+</code></pre>
+
+<h2>Install a Package from Packagist</h2>
+
+<p><a href="https://packagist.org">Packagist</a> is the default Composer package repository.</p>
+
+<p>Install a package from Packagist using <code>composer require &lt;package-name&gt;</code> (it will update <code>composer.json</code>) or by adding it directly in the <code>require</code> key on <code>composer.json</code> and then running <code>composer update &lt;package-name&gt;</code>.</p>
+
+<h3>Command Line</h3>
+
+<pre><code class="language-bash">$ composer require aws/aws-sdk-php
+</code></pre>
+
+<h3>composer.json</h3>
+
+<pre><code class="language-javascript">  "require": {
+      ...
+      "aws/aws-sdk-php": "^3.173"
+  },
+</code></pre>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3" />
+    <title>Upload large files directly to S3 using Laravel and Uppy</title>
+    <published>2021-02-13T00:00:00+00:00</published>
+    <updated>2021-02-13T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">Upload large files directly to AWS S3 with Laravel (backend) and Uppy (frontend) using multipart upload....</summary>
+    <content type="html"><![CDATA[
+        <p>Dealing with large file uploads can be tricky. An optimized solution is to upload directly to Amazon S3 using multipart upload, preventing server overload.</p>
+
+<p>When using AWS SDKs, REST API, or AWS CLI, Amazon S3 allows you upload a file up to <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html">5Gb in a single operation</a>. To upload files larger than 5Gb you <em>must</em> use multipart upload.</p>
+
+<p>If you have already ventured into coding S3 multipart uploads, you probably know that debugging is the most fun part. You can get lost with obscure CORS messages that have nothing to do with CORS at all. You have to analyze every request, header, and the code behind the scenes to get a clue of what is wrong.</p>
+
+<p>I've had the absolute joy of working with a great team on my first Laravel package to simplify this task: <a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload">Multipart Uploads using Laravel, AWS S3, and Uppy</a>. If you are working with large file uploads to S3, this package will be very handy! It has everything you need to upload, you'll only have to configure few things and you're ready to go.</p>
+
+<p>Briefly, the package upload files directly to S3 using multipart upload and returns the URL of the uploaded file. You can pause and abort the upload. It uses the amazing <a href="https://uppy.io">Uppy</a> library for the frontend.</p>
+
+<p>To add the HTML and JS required to get Uppy working it uses a Blade component (<code>&lt;x-input.uppy /&gt;</code>).
+Alternatively, you can change the template code by publishing the package view or you can create your own template in your app (please see below on "View and JS Configuration").</p>
+
+<p>Let's start!</p>
+
+<h2>Installing</h2>
+
+<h3>Install using Composer</h3>
+
+<pre><code class="language-bash">composer require tapp/laravel-uppy-s3-multipart-upload
+</code></pre>
+
+<h3>Add required JS libraries</h3>
+
+<p>Add on your package.json file the Uppy JS libraries and AlpineJS library:</p>
+
+<pre><code class="language-javascript">    ...
+    "devDependencies": {
+        "alpinejs": "^2.7.3",
+        ...
+    },
+    "dependencies": {
+        "@uppy/aws-s3-multipart": "^1.8.12",
+        "@uppy/core": "^1.16.0",
+        "@uppy/drag-drop": "^1.4.24",
+        "@uppy/status-bar": "^1.9.0",
+        ...
+    }
+    ...
+</code></pre>
+
+<p>Add in your <code>resources/js/bootstrap.js</code> file:</p>
+
+<pre><code class="language-javascript">...
+
+require('@uppy/core/dist/style.min.css')
+require('@uppy/drag-drop/dist/style.min.css')
+require('@uppy/status-bar/dist/style.min.css')
+
+import Uppy from '@uppy/core'
+import DragDrop from '@uppy/drag-drop'
+import StatusBar from '@uppy/status-bar'
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
+
+window.Uppy = Uppy
+window.DragDrop = DragDrop
+window.StatusBar = StatusBar
+window.AwsS3Multipart = AwsS3Multipart
+</code></pre>
+
+<p>Add in your <code>resources/js/app.js</code>:</p>
+
+<pre><code class="language-javascript">...
+require('alpinejs');
+</code></pre>
+
+<p>Install JS libraries:</p>
+
+<pre><code>$ npm install
+$ npm run dev
+</code></pre>
+
+<h3>Publish config file</h3>
+
+<pre><code class="language-bash">php artisan vendor:publish --tag=uppy-s3-multipart-upload-config
+</code></pre>
+
+<h3>AWS S3 Setup</h3>
+
+<p>The package installs the AWS SDK for PHP and use Laravel's default s3 disk configuration from <code>filesystems.php</code> file.</p>
+
+<p>You just have to add your S3 keys, region, and bucket using the following env vars in your <code>.env</code> file:</p>
+
+<pre><code>AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=
+AWS_BUCKET=
+AWS_URL="https://s3.amazonaws.com"
+AWS_POST_END_POINT="https://${AWS_BUCKET}.s3.amazonaws.com/"
+</code></pre>
+
+<p>To allow direct multipart uploads to your S3 bucket, you need to add some extra configuration on bucket's CORS configuration. On your AWS S3 console, select your bucket. Click on "Permissions" tab. On "CORS configuration" add the following configuration:</p>
+
+<pre><code>[
+    {
+        "AllowedHeaders": [
+            "Authorization",
+            "x-amz-date",
+            "x-amz-content-sha256",
+            "content-type"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE",
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ]
+    }
+]
+</code></pre>
+
+<p>On AllowedOrigins:</p>
+
+<pre><code>"AllowedOrigins": [
+    "*"
+]
+</code></pre>
+
+<p>You should list the URLs allowed, e.g.:</p>
+
+<pre><code>"AllowedOrigins": [
+    "https://example.com"
+]
+</code></pre>
+
+<h2>Using</h2>
+
+<p>To begin uploading files, simply add a hidden field that will receive the S3 URL of the uploaded file, and the uppy blade component to your form in your view file:</p>
+
+<pre><code class="language-html">&lt;input type="hidden" name="file" id="file" /&gt;
+&lt;x-input.uppy /&gt;
+</code></pre>
+
+<p>Now you're ready to start uploading big files directly to S3!</p>
+
+<p><img src="/assets/img/upload-large-files-s3.png" alt="File uploaded" /></p>
+
+<h2>Let's break it down</h2>
+
+<p>You can also configure it to best suit your needs:</p>
+
+<h3>S3 Configuration</h3>
+
+<p>On the package configuration file (<code>/config/uppy-s3-multipart-upload.php</code>), you can setup:</p>
+
+<p><code>s3.bucket.folder</code> - the folder to store the uploaded files in your bucket</p>
+
+<p><code>s3.presigned_url.expiry_time</code> - the expiration time of the presigned URLs used to upload the parts</p>
+
+<pre><code>return [
+    's3' =&gt; [
+        'bucket' =&gt; [
+            /*
+             * Folder on bucket to save the file
+             */
+            'folder' =&gt; 'videos',
+        ],
+        'presigned_url' =&gt; [
+            /*
+             * Expiration time of the presigned URLs
+             */
+            'expiry_time' =&gt; '+30 minutes',
+        ],
+    ],
+];
+</code></pre>
+
+<h3>View and JS Configuration</h3>
+
+<h4>Customizing the <code>uppy</code> component</h4>
+
+<h5>Passing data</h5>
+
+<p>You can configure the <code>uppy</code> component by passing data to it:</p>
+
+<p><a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component">https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component</a></p>
+
+<h5>Changing the HTML and JS</h5>
+
+<p>First, publish it to your project with:</p>
+
+<pre><code class="language-bash">php artisan vendor:publish --tag=uppy-s3-multipart-upload-views
+</code></pre>
+
+<pre><code class="language-bash">Copied Directory [/vendor/tapp/laravel-uppy-s3-multipart-upload/resources/views]
+To [/resources/views/vendor/uppy-s3-multipart-upload]
+Publishing complete.
+</code></pre>
+
+<p>Now you can change the <code>/resources/views/vendor/uppy-s3-multipart-upload/components/input/uppy.blade.php</code> file.</p>
+
+<h4>Rewriting the view</h4>
+
+<p>You can write your own view and JS. The only required part is the Uppy's <code>AwsS3Multipart</code> as follows:</p>
+
+<pre><code class="language-javascript">    Uppy
+      .use(AwsS3Multipart, {
+          companionUrl: '/',
+          companionHeaders:
+          {
+              'X-CSRF-TOKEN': window.csrfToken,
+          },
+      })
+</code></pre>
+
+<h2>Sample App</h2>
+
+<p>Here's a <a href="https://github.com/andreia/laravel-uppy-upload-app">sample Laravel app</a> to demonstrate the package usage.</p>
+
+<h2>That's all folks!</h2>
+
+<p>This is the pre-release of the package and it has more features to add :)</p>
+
+<p>I would really love to hear your feedback!</p>
+    ]]></content>
+</entry>
+            <entry>
+    <id>https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor</id>
+    <link type="text/html" rel="alternate" href="https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor" />
+    <title>Using Rollbar with Vapor</title>
+    <published>2021-01-25T00:00:00+00:00</published>
+    <updated>2021-01-25T00:00:00+00:00</updated>
+    <author>
+        <name>Andréia Bohner</name>
+    </author>
+    <summary type="html">How to get Rollbar working with Vapor...</summary>
+    <content type="html"><![CDATA[
+        <p>As I couldn't find on docs, maybe this will help someone to save time :)</p>
+
+<p>You'll only have to change a few configurations to get <a href="https://rollbar.com">Rollbar</a> working with <a href="https://vapor.laravel.com/">Vapor</a>.</p>
+
+<p>On your <code>.env.production</code> add this env var:</p>
+
+<pre><code class="language-php">LOG_CHANNEL=vapor
+</code></pre>
+
+<p>And in your Laravel <code>logging</code> config:</p>
+
+<pre><code class="language-php">// config/logging.php
+
+return [
+       'channels' =&gt; [
+            'vapor' =&gt; [
+                'driver'            =&gt; 'stack',
+                'channels'          =&gt; ['rollbar', 'stderr'],
+                'ignore_exceptions' =&gt; false,
+            ],
+
+            'rollbar' =&gt; [
+                'driver'        =&gt; 'monolog',
+                'handler'       =&gt; \Rollbar\Laravel\MonologHandler::class,
+                'access_token'  =&gt; env('ROLLBAR_TOKEN'),
+                'level'         =&gt; 'debug',
+                'person_fn'     =&gt; 'Auth::user',
+                'capture_email' =&gt; true,
+            ],
+        ],
+];
+</code></pre>
+
+<blockquote>
+  <p>Found this similar solution on <a href="https://flareapp.io/docs/ignition-for-laravel/installation#using-flare-on-vapor">Flare config</a> :)</p>
+</blockquote>
+    ]]></content>
+</entry>
+    </feed>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSFL0DCNF"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LRSFL0DCNF');
+            </script>
+                <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="How to test Stripe webhooks locally with Laravel, Homestead, and ngrok">
+        <meta name="author" content="Andréia Bohner"/>
+        <meta name="robots" content="index,follow,max-image-preview:large"/>
+
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
+        <meta property="og:title" content="How to test Stripe webhooks locally with Laravel, Homestead, and ngrok | Andréia Bohner"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://andreia.github.io/blog/2021-06-19/how-to-test-stripe-webhooks-locally-with-laravel-homestead-and-ngrok"/>
+        <meta property="og:description" content="How to test Stripe webhooks locally with Laravel, Homestead, and ngrok" />
+        <meta property="og:image" content="/assets/img/post-cover-stripe.jpg" />
+        <meta name="twitter:title" content="How to test Stripe webhooks locally with Laravel, Homestead, and ngrok">
+        <meta name="twitter:description" content="In this tutorial, we are going to learn how to use ngrok and Laravel to handle Stripe webhooks really nicely in our local environment.">
+        <meta name="twitter:image" content="/assets/img/post-cover-stripe.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@andreiabohner">
+        <meta name="twitter:creator" content="@andreiabohner">
+        <meta name="twitter:url" content="https://andreia.github.io/blog/2021-06-19/how-to-test-stripe-webhooks-locally-with-laravel-homestead-and-ngrok"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
+
+        <title>How to test Stripe webhooks locally with Laravel, Homestead, and ngrok | Andréia Bohner</title>
+
+        <link rel="home" href="https://andreia.github.io">
+        <link rel="icon" href="/favicon.png">
+        <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Andréia Bohner Atom Feed">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/build/css/main.css?id=30101e1bea703a6c69fe2c558da1b7ee">
+    </head>
+
+    <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="Andréia Bohner home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        <nav class="hidden lg:flex items-center justify-end text-lg">
+    <a title="Andréia Bohner Blog" href="/blog"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Blog
+    </a>
+
+    <a title="Andréia Bohner Bookshelf" href="/bookshelf"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Bookshelf
+    </a>
+
+    <a title="Andréia Bohner About" href="/about"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        About
+    </a>
+
+    <a title="Andréia Bohner Contact" href="/contact"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Contact
+    </a>
+</nav>
+
+                        <button class="flex justify-center items-center bg-blue-500 border border-blue-500 h-10 px-5 rounded-full lg:hidden focus:outline-none"
+    onclick="navMenu.toggle()"
+>
+    <svg id="js-nav-menu-show" xmlns="http://www.w3.org/2000/svg"
+        class="fill-current text-white h-9 w-4" viewBox="0 0 32 32"
+    >
+        <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
+    </svg>
+
+    <svg id="js-nav-menu-hide" xmlns="http://www.w3.org/2000/svg"
+        class="hidden fill-current text-white h-9 w-4" viewBox="0 0 36 30"
+    >
+        <polygon points="32.8,4.4 28.6,0.2 18,10.8 7.4,0.2 3.2,4.4 13.8,15 3.2,25.6 7.4,29.8 18,19.2 28.6,29.8 32.8,25.6 22.2,15 "/>
+    </svg>
+</button>
+
+                    </div>
+                </div>
+            </header>
+
+            <nav id="js-nav-menu" class="nav-menu hidden lg:hidden">
+    <ul class="my-0">
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Blog"
+                href="/blog"
+                class="nav-menu__item hover:text-pink-500 "
+            >Blog</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner About"
+                href="/about"
+                class="nav-menu__item hover:text-pink-500 "
+            >About</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Contact"
+                href="/contact"
+                class="nav-menu__item hover:text-pink-500 "
+            >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                            <img src="/assets/img/post-cover-stripe.jpg" alt="How to test Stripe webhooks locally with Laravel, Homestead, and ngrok cover image" class="mb-2">
+    
+    <h1 class="leading-none mb-2">How to test Stripe webhooks locally with Laravel, Homestead, and ngrok</h1>
+
+    <p class="text-gray-700 text-xl md:mt-0">Andréia Bohner  •  June 19, 2021</p>
+
+                        <a
+                href="/blog/categories/stripe"
+                title="View posts in stripe"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >stripe</a>
+                    <a
+                href="/blog/categories/webhook"
+                title="View posts in webhook"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >webhook</a>
+                    <a
+                href="/blog/categories/laravel"
+                title="View posts in laravel"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >laravel</a>
+            
+    <div class="border-b border-pink-200 mb-10 pb-4" v-pre>
+        <p>To be able to test <a href="https://stripe.com/docs/webhooks">Stripe webhooks</a> locally, we need to expose our local app to the internet. We can do this using tools like <a href="https://ngrok.com/">ngrok</a> or <a href="https://stripe.com/docs/stripe-cli">Stripe CLI</a>.</p>
+
+<p>When using Laravel's <a href="https://laravel.com/docs/8.x/billing#handling-stripe-webhooks">Cashier</a> (or <a href="https://spark.laravel.com/docs/1.x/spark-stripe/customization.html#webhooks">Spark</a>) together with ngrok, this integration works like a charm!
+We are going to see how to set up everything in this tutorial. Let's dig in.</p>
+
+<h2>Configuring the webhook on Laravel</h2>
+
+<h3>Adding the webhook handler</h3>
+
+<p>First, we'll add our own controller that will handle the Stripe events. Let's call it <code>StripeWebhookController</code>.
+This controller will extend Cashier's <code>WebhookController</code> (or <a href="https://spark.laravel.com/docs/1.x/spark-stripe/customization.html#webhooks">Spark</a>, if you are using it) that already provide us with <a href="https://laravel.com/docs/8.x/billing#defining-webhook-event-handlers">useful methods to handle Stripe events</a>.</p>
+
+<p>An implementation extending Cashier would look like this:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Http\Controllers;
+
+use Laravel\Cashier\Http\Controllers\WebhookController as CashierController;
+use Symfony\Component\HttpFoundation\Response;
+
+class StripeWebhookController extends CashierController
+{
+    /**
+     * Handle customer subscription updated.
+     *
+     * @param  array  $payload
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function handleCustomerSubscriptionUpdated(array $payload)
+    {
+        $customer = $payload['data']['object']['customer'];
+
+        // handle the incoming event...
+
+        return new Response('Webhook Handled', 200);
+    }
+}
+</code></pre>
+
+<p>By extending Cashier's <code>WebhookController</code> we can handle Stripe events following this pattern to name the methods:</p>
+
+<blockquote>
+  <p>Camel case version of the Stripe event we want to handle, prefixed by the word <code>handle</code>.</p>
+</blockquote>
+
+<p>E.g.: the method <code>handleCustomerSubscriptionUpdated(array $payload)</code> will handle the <a href="https://stripe.com/docs/api/events/types#event_types-customer.subscription.updated"><code>customer.subscription.updated</code></a> Stripe event.</p>
+
+<p><img src="/assets/img/stripe_event1.png" alt="Stripe Event" /></p>
+
+<p>All possible Stripe events are <a href="https://stripe.com/docs/api/events/types">listed here</a>.</p>
+
+<h3>Adding the webhook routes</h3>
+
+<p>By default, Cashier's webhook controller responds to the <code>/stripe/webhook</code> URL path, and Spark to <code>/spark/webhook</code>.
+However, the route can be named whatever is suitable for you.</p>
+
+<p>To use the <code>webhooks/stripe</code> route for our <code>StripeWebhookController</code> controller, add the following in your <code>route/web.php</code> file:</p>
+
+<pre><code class="language-php">use App\Http\Controllers\StripeWebhookController;
+
+Route::post('webhooks/stripe', 'StripeWebhookController@handleWebhook');
+</code></pre>
+
+<p>Cashier's <code>handleWebhook</code> method is the main entry point. This is the <a href="https://github.com/laravel/cashier-stripe/blob/12.x/src/Http/Controllers/WebhookController.php#L40-L56">method's content</a>:</p>
+
+<pre><code class="language-php">/**
+ * Handle a Stripe webhook call.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Symfony\Component\HttpFoundation\Response
+ */
+public function handleWebhook(Request $request)
+{
+    $payload = json_decode($request-&gt;getContent(), true);
+    $method = 'handle'.Str::studly(str_replace('.', '_', $payload['type']));
+
+    WebhookReceived::dispatch($payload);
+
+    if (method_exists($this, $method)) {
+        $response = $this-&gt;{$method}($payload);
+
+        WebhookHandled::dispatch($payload);
+
+        return $response;
+    }
+
+    return $this-&gt;missingMethod($payload);
+}
+
+</code></pre>
+
+<h3>Disable CSRF for Stripe webhook URLs</h3>
+
+<p>Disable CSRF for Stripe webhook routes in the <code>app/Http/Middleware/VerifyCsrfToken.php</code> middleware:</p>
+
+<pre><code class="language-php">protected $except = [
+    'webhooks/stripe',
+];
+</code></pre>
+
+<p>You can read more about it in the <a href="https://laravel.com/docs/8.x/billing#webhooks-csrf-protection">documentation here</a>.</p>
+
+<h2>Setting up ngrok</h2>
+
+<p>Let's now set up our ngrok and try this out!</p>
+
+<p><a href="https://ngrok.com/download">Download ngrok</a> and follow the installation instructions for your OS:</p>
+
+<p><a href="https://ngrok.com/download"><img src="/assets/img/ngrok_install.png" alt="ngrok install" /></a></p>
+
+<h4>1. Unzip ngrok</h4>
+
+<h4>2. Set up ngrok executable</h4>
+
+<p><strong>On Linux:</strong></p>
+
+<p>On your terminal, copy <code>ngrok</code> to <code>/usr/bin</code>.</p>
+
+<p><strong>On Windows:</strong></p>
+
+<p>Execute <code>ngrok.exe</code>. It will open a new terminal.</p>
+
+<h4>3. Start a tunnel to your local app</h4>
+
+<p>Start a HTTP tunnel to your local application (you can specify your app URL - e.g. <code>my-app.local</code> - with the <code>-host-header</code> option), by running:</p>
+
+<pre><code class="language-php">ngrok http 192.168.10.10 -host-header=my-app.local
+</code></pre>
+
+<blockquote>
+  <p>The example above is for Homestead with the default IP (<code>192.168.10.10</code>)</p>
+</blockquote>
+
+<p>You should now see the <code>HTTPs</code> and <code>HTTP</code> ngrok public URLs to your local app in <code>Forwarding</code>.</p>
+
+<p>They would look something like this:</p>
+
+<p><img src="/assets/img/ngrok.png" alt="ngrok" /></p>
+
+<p>We need to add this public URL to the Stripe dashboard.</p>
+
+<p>Copy the desired ngrok URL (<code>https</code> or <code>http</code>) appending the webhook route we added before (<code>/webhooks/stripe</code>) at the end, like this:</p>
+
+<pre><code class="language-bash">https://0a0972dc0950.ngrok.io/webhooks/stripe
+</code></pre>
+
+<p>This is our <em>webhook URL</em>.</p>
+
+<h2>Configuring the webhook on Stripe dashboard</h2>
+
+<p>Let's go ahead and add our <em>webhook URL</em> to the <a href="https://dashboard.stripe.com/">Stripe dashboard</a>:</p>
+
+<p>On left menu, go to <code>Developers &gt; Webhooks</code>.</p>
+
+<p><img src="/assets/img/stripe_menu.png" alt="Developers > Webhooks" /></p>
+
+<p>Click on the <code>Add endpoint</code> button located on top right.</p>
+
+<p><img src="/assets/img/stripe_endpoint.png" alt="Add endpoint" /></p>
+
+<p>Add the <em>webhook URL</em> to the <code>Endpoint URL</code> field.</p>
+
+<p>On <code>Events to send</code> select the events you want to handle, and click on <code>Add endpoint</code>.</p>
+
+<p><img src="/assets/img/stripe_dashboard1.png" alt="Stripe dashboard" /></p>
+
+<p>Copy the <strong>"Signing secret"</strong> value. It will be used in the next step below.</p>
+
+<p><img src="/assets/img/stripe_dashboard.png" alt="Stripe Dashboard" /></p>
+
+<h2>Adding the signing secret to our app</h2>
+
+<p>The remaining step is to update the <code>STRIPE_WEBHOOK_SECRET</code> env var with the value of <strong>"Signing secret"</strong> on the <code>.env</code> file.</p>
+
+<p>E.g:</p>
+
+<pre><code class="language-bash">STRIPE_WEBHOOK_SECRET=whsec_2ARB5nXLZ87gTHv7mYDvIQylTq7qEniu
+</code></pre>
+
+<p>To update this config value run:</p>
+
+<pre><code class="language-bash">php artisan config:clear
+</code></pre>
+
+<p>That's it. You're now all set to play with webhooks locally :)</p>
+
+<p>Update a Stripe subscription in your app and you'll see the webhook received on ngrok CLI and the code in your controller should be handled.
+You can also check the event on Stripe dashboard under <strong>"Webhook attempts"</strong> where you'll find detailed information, including the payload.</p>
+
+<blockquote>
+  <p>You can test the webhook on Stripe dashboard as well by clicking on the <code>Send test webhook</code> button located on the top right (in <code>Developers &gt; Webhooks</code>)</p>
+</blockquote>
+
+<p><img src="/assets/img/stripe_test.png" alt="Webhook test" /></p>
+
+<p>I'm happy to take any questions you have in the comments section below.</p>
+    </div>
+
+    <nav class="flex justify-between text-sm md:text-base">
+        <div>
+                            <a href="https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages" title="Older Post: Quick reference on installing Composer packages from different sources">
+                    &LeftArrow; Quick reference on installing Composer packages from different sources
+                </a>
+                    </div>
+
+        <div>
+                            <a href="https://andreia.github.io/blog/2024-06-15/filament-php-blade-ui-components-visually-explained" title="Newer Post: Filament PHP Blade UI Components Visually Explained">
+                    Filament PHP Blade UI Components Visually Explained &RightArrow;
+                </a>
+                    </div>
+    </nav>
+
+    <div class='comments'>
+                    <Disqus shortname="andreiabohnergithub" />
+            </div>
+            </main>
+
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js?id=4298c6b43295a622640b0114ea9f4284"></script>
+
+        <script>
+    const navMenu = {
+        toggle() {
+            const menu = document.getElementById('js-nav-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('lg:block');
+            document.getElementById('js-nav-menu-hide').classList.toggle('hidden');
+            document.getElementById('js-nav-menu-show').classList.toggle('hidden');
+        },
+    }
+</script>
+    </body>
+</html>

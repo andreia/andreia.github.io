@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSFL0DCNF"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LRSFL0DCNF');
+            </script>
+                <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Introducing the Arctic Nord Theme for Filament PHP.">
+        <meta name="author" content="Andréia Bohner"/>
+        <meta name="robots" content="index,follow,max-image-preview:large"/>
+
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
+        <meta property="og:title" content="Arctic Nord Theme for Filament PHP | Andréia Bohner"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://andreia.github.io/blog/2025-02-09/filament-php-nord-theme"/>
+        <meta property="og:description" content="Introducing the Arctic Nord Theme for Filament PHP." />
+        <meta property="og:image" content="/assets/img/post-cover-filament-nord-theme.jpg" />
+        <meta name="twitter:title" content="Arctic Nord Theme for Filament PHP">
+        <meta name="twitter:description" content="Add a bluetiful touch of arctic colors to your Filament PHP apps.">
+        <meta name="twitter:image" content="/assets/img/post-cover-filament-nord-theme.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@andreiabohner">
+        <meta name="twitter:creator" content="@andreiabohner">
+        <meta name="twitter:url" content="https://andreia.github.io/blog/2025-02-09/filament-php-nord-theme"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
+
+        <title>Arctic Nord Theme for Filament PHP | Andréia Bohner</title>
+
+        <link rel="home" href="https://andreia.github.io">
+        <link rel="icon" href="/favicon.png">
+        <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Andréia Bohner Atom Feed">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/build/css/main.css?id=30101e1bea703a6c69fe2c558da1b7ee">
+    </head>
+
+    <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="Andréia Bohner home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        <nav class="hidden lg:flex items-center justify-end text-lg">
+    <a title="Andréia Bohner Blog" href="/blog"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Blog
+    </a>
+
+    <a title="Andréia Bohner Bookshelf" href="/bookshelf"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Bookshelf
+    </a>
+
+    <a title="Andréia Bohner About" href="/about"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        About
+    </a>
+
+    <a title="Andréia Bohner Contact" href="/contact"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Contact
+    </a>
+</nav>
+
+                        <button class="flex justify-center items-center bg-blue-500 border border-blue-500 h-10 px-5 rounded-full lg:hidden focus:outline-none"
+    onclick="navMenu.toggle()"
+>
+    <svg id="js-nav-menu-show" xmlns="http://www.w3.org/2000/svg"
+        class="fill-current text-white h-9 w-4" viewBox="0 0 32 32"
+    >
+        <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
+    </svg>
+
+    <svg id="js-nav-menu-hide" xmlns="http://www.w3.org/2000/svg"
+        class="hidden fill-current text-white h-9 w-4" viewBox="0 0 36 30"
+    >
+        <polygon points="32.8,4.4 28.6,0.2 18,10.8 7.4,0.2 3.2,4.4 13.8,15 3.2,25.6 7.4,29.8 18,19.2 28.6,29.8 32.8,25.6 22.2,15 "/>
+    </svg>
+</button>
+
+                    </div>
+                </div>
+            </header>
+
+            <nav id="js-nav-menu" class="nav-menu hidden lg:hidden">
+    <ul class="my-0">
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Blog"
+                href="/blog"
+                class="nav-menu__item hover:text-pink-500 "
+            >Blog</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner About"
+                href="/about"
+                class="nav-menu__item hover:text-pink-500 "
+            >About</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Contact"
+                href="/contact"
+                class="nav-menu__item hover:text-pink-500 "
+            >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                            <img src="/assets/img/post-cover-filament-nord-theme.jpg" alt="Arctic Nord Theme for Filament PHP cover image" class="mb-2">
+    
+    <h1 class="leading-none mb-2">Arctic Nord Theme for Filament PHP</h1>
+
+    <p class="text-gray-700 text-xl md:mt-0">Andréia Bohner  •  February 9, 2025</p>
+
+                        <a
+                href="/blog/categories/filament"
+                title="View posts in filament"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >filament</a>
+                    <a
+                href="/blog/categories/laravel"
+                title="View posts in laravel"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >laravel</a>
+            
+    <div class="border-b border-pink-200 mb-10 pb-4" v-pre>
+        <p>The Filament PHP ecosystem just got a fresh new look! I'm excited to introduce the <a href="https://github.com/andreia/filament-nord-theme">Nord Theme for Filament PHP</a>. This beautifully designed theme features both light and dark modes and is inspired by the popular <a href="https://www.nordtheme.com/docs/colors-and-palettes">Nord color palette</a>.
+If you're looking for a clean, stylish, and visually soothing user interface for your Filament applications, this theme is your perfect match! ❄️ ⛄</p>
+
+<h2>Why the Nord Theme?</h2>
+
+<p><a href="https://www.nordtheme.com/">Nord</a> is a beloved color palette derived from the icy blues, snowy tones of the Arctic and the mesmerizing hues of the Aurora Borealis. Designed for optimal readability and minimal eye strain, it blends Nordic aesthetics with cool, calming, and balanced dimmed pastel tones making it a ideal choice for a modern and elegant UI.</p>
+
+<p><a href="https://www.nordtheme.com/docs/colors-and-palettes"><img src="/assets/img/nord-theme/nord_palettes.jpg" alt="Nord theme palettes" /></a></p>
+
+<p>This is the Filament Nord theme custom gray palette used to match the Nord's Polar Night and Snow Storm colors:</p>
+
+<p><a href="/assets/img/nord-theme/custom-gray-palette.png"><img src="/assets/img/nord-theme/custom-gray-palette.png" alt="Custom Filament gray palette" /></a></p>
+
+<h2>Features of the Filament Nord Theme</h2>
+
+<p>🌙 Light and Dark Modes – Seamlessly switch between light and dark themes.</p>
+
+<p>🎨 Consistent Nord Palette – Every UI element is carefully styled to match the Nord theme.</p>
+
+<p>⚡ Easy Installation – Quickly set up the theme in your Filament project.</p>
+
+<h2>Installation</h2>
+
+<p>Getting started with the Filament Nord Theme is simple. You can install it via Composer:</p>
+
+<pre><code class="language-bash">composer require andreia/filament-nord-theme
+</code></pre>
+
+<p>To install the theme's required JS libraries (the forms, typography TailwindCSS plugins, and also postcss and autoprefixer) and create the postcss.config.js file if it not exists yet, run:</p>
+
+<pre><code class="language-bash">php artisan filament-nord-theme:install
+</code></pre>
+
+<p>Add a new item to the input array of your <code>vite.config.js</code> file:</p>
+
+<pre><code class="language-php">'vendor/andreia/filament-nord-theme/resources/css/theme.css'
+</code></pre>
+
+<p>Compile the assets with:</p>
+
+<pre><code class="language-bash">npm run build
+</code></pre>
+
+<p>Register the plugin on your panel (e.g. <code>/app/Providers/Filament/AdminPanelProvider.php</code>):</p>
+
+<pre><code class="language-php">use Andreia\FilamentNordTheme\FilamentNordThemePlugin;
+
+$panel
+  -&gt;plugin(FilamentNordThemePlugin::make())
+</code></pre>
+
+<p>You are all set!</p>
+
+<h2>Theme Preview</h2>
+
+<p>Here's a preview of what the <a href="https://github.com/filamentphp/demo">Filament demo project</a> looks like with the Nord Theme applied:</p>
+
+<p><a href="https://www.youtube.com/watch?v=8rdonWoUb5s" title="Click to watch the theme preview"><img src="/assets/img/nord-theme/filament_nord_theme.jpg" alt="Filament Nord Theme preview" /></a></p>
+
+<h2>Screenshots</h2>
+
+<p>Every detail is carefully thought out to create a eye-comfortable, and clean feeling.</p>
+
+<p><img src="/assets/img/nord-theme/rounded-dark.png" alt="Rounded corners dashboard widgets dark" /></p>
+
+<p><img src="/assets/img/nord-theme/rounded-light.png" alt="Rounded corners dashboard widgets light" /></p>
+
+<p><img src="/assets/img/nord-theme/rounded-light1.png" alt="Rounded corners buttons light" /></p>
+
+<p><img src="/assets/img/nord-theme/rounded-light2.png" alt="Rounded corners button and widgets light" /></p>
+
+<h3>Dashboard</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Dashboard Light</th>
+      <th scope="col" width="1000px">Dashboard Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/dashboard_light.png" width="100%" alt="Dashboard Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/dashboard_dark.png" width="100%" alt="Dashboard Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>User Menu</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">User Menu Light</th>
+      <th scope="col" width="1000px">User Menu Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/user_menu_light.png" width="100%" alt="User Menu Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/user_menu_dark.png" width="100%" alt="User Menu Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Product</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Create Product Light</th>
+      <th scope="col" width="1000px">Create Product Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/product_create_light.png" width="100%" alt="Create Product Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/product_create_dark.png" width="100%" alt="Create Product Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Order</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Order List Light</th>
+      <th scope="col" width="1000px">Order List Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/orders_light.png" width="100%" alt="Order List Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/orders_dark.png" width="100%" alt="Order List Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col" width="1000px">Create Order Light</th>
+      <th scope="col" width="1000px">Create Order Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/order_create_light.png" width="100%" alt="Create Order Light">
+      </td>
+      <td>
+        <img src="https://raw.githubusercontent.com/andreia/filament-nord-theme/main/docs/order_create_dark.png" width="100%" alt="Create Order Dark">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Conclusion</h2>
+
+<p>The Nord Theme for Filament PHP brings a sleek, modern look to your Filament app with a focus on a clean design and aesthetics. It provides both a dark a light mode and it can be easily applied to your existing app.</p>
+
+<p>Give it a try and let me know your thoughts! You can find the project on <a href="https://github.com/andreia/filament-nord-theme">GitHub: Filament Nord Theme</a>.</p>
+
+<p>Happy theming! 💛 ✨</p>
+    </div>
+
+    <nav class="flex justify-between text-sm md:text-base">
+        <div>
+                            <a href="https://andreia.github.io/blog/2024-07-07/reusing-resource-code-in-relation-manager" title="Older Post: Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers">
+                    &LeftArrow; Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers
+                </a>
+                    </div>
+
+        <div>
+                    </div>
+    </nav>
+
+    <div class='comments'>
+                    <Disqus shortname="andreiabohnergithub" />
+            </div>
+            </main>
+
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js?id=4298c6b43295a622640b0114ea9f4284"></script>
+
+        <script>
+    const navMenu = {
+        toggle() {
+            const menu = document.getElementById('js-nav-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('lg:block');
+            document.getElementById('js-nav-menu-hide').classList.toggle('hidden');
+            document.getElementById('js-nav-menu-show').classList.toggle('hidden');
+        },
+    }
+</script>
+    </body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSFL0DCNF"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LRSFL0DCNF');
+            </script>
+                <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Reusing Filament resource&#039;s code in relation managers">
+        <meta name="author" content="Andréia Bohner"/>
+        <meta name="robots" content="index,follow,max-image-preview:large"/>
+
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
+        <meta property="og:title" content="Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers | Andréia Bohner"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://andreia.github.io/blog/2024-07-07/reusing-resource-code-in-relation-manager"/>
+        <meta property="og:description" content="Reusing Filament resource&#039;s code in relation managers" />
+        <meta property="og:image" content="/assets/img/post-cover-dandelion.jpg" />
+        <meta name="twitter:title" content="Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers">
+        <meta name="twitter:description" content="Streamlining your Filament code by reusing the resource's form, table, and infolist in your relation managers">
+        <meta name="twitter:image" content="/assets/img/post-cover-dandelion.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@andreiabohner">
+        <meta name="twitter:creator" content="@andreiabohner">
+        <meta name="twitter:url" content="https://andreia.github.io/blog/2024-07-07/reusing-resource-code-in-relation-manager"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
+
+        <title>Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers | Andréia Bohner</title>
+
+        <link rel="home" href="https://andreia.github.io">
+        <link rel="icon" href="/favicon.png">
+        <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Andréia Bohner Atom Feed">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/build/css/main.css?id=30101e1bea703a6c69fe2c558da1b7ee">
+    </head>
+
+    <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="Andréia Bohner home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        <nav class="hidden lg:flex items-center justify-end text-lg">
+    <a title="Andréia Bohner Blog" href="/blog"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Blog
+    </a>
+
+    <a title="Andréia Bohner Bookshelf" href="/bookshelf"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Bookshelf
+    </a>
+
+    <a title="Andréia Bohner About" href="/about"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        About
+    </a>
+
+    <a title="Andréia Bohner Contact" href="/contact"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Contact
+    </a>
+</nav>
+
+                        <button class="flex justify-center items-center bg-blue-500 border border-blue-500 h-10 px-5 rounded-full lg:hidden focus:outline-none"
+    onclick="navMenu.toggle()"
+>
+    <svg id="js-nav-menu-show" xmlns="http://www.w3.org/2000/svg"
+        class="fill-current text-white h-9 w-4" viewBox="0 0 32 32"
+    >
+        <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
+    </svg>
+
+    <svg id="js-nav-menu-hide" xmlns="http://www.w3.org/2000/svg"
+        class="hidden fill-current text-white h-9 w-4" viewBox="0 0 36 30"
+    >
+        <polygon points="32.8,4.4 28.6,0.2 18,10.8 7.4,0.2 3.2,4.4 13.8,15 3.2,25.6 7.4,29.8 18,19.2 28.6,29.8 32.8,25.6 22.2,15 "/>
+    </svg>
+</button>
+
+                    </div>
+                </div>
+            </header>
+
+            <nav id="js-nav-menu" class="nav-menu hidden lg:hidden">
+    <ul class="my-0">
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Blog"
+                href="/blog"
+                class="nav-menu__item hover:text-pink-500 "
+            >Blog</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner About"
+                href="/about"
+                class="nav-menu__item hover:text-pink-500 "
+            >About</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Contact"
+                href="/contact"
+                class="nav-menu__item hover:text-pink-500 "
+            >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                    
+    <h1 class="leading-none mb-2">Filament Tip: Reusing the Resource&#039;s Form, Table, and Infolist in Relation Managers</h1>
+
+    <p class="text-gray-700 text-xl md:mt-0">Andréia Bohner  •  July 7, 2024</p>
+
+                        <a
+                href="/blog/categories/filament"
+                title="View posts in filament"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >filament</a>
+            
+    <div class="border-b border-pink-200 mb-10 pb-4" v-pre>
+        <p>If your relation manager matches the form, table, and infolist of the resource, you can reuse the code you wrote for your resource in your relation manager. This will save you time and effort while keeping your application consistent and error-free.</p>
+
+<p>Let's check out an example of how to implement it.</p>
+
+<p>Here's a simplified version of a Filament address resource that we are going to reuse the code:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\AddressResource\Pages;
+use App\Models\Address;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+
+class AddressResource extends Resource
+{
+    protected static ?string $model = Address::class;
+
+    protected static ?string $navigationGroup = 'User';
+
+    protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            -&gt;schema([
+                Infolists\Components\TextEntry::make('street'),
+                Infolists\Components\TextEntry::make('zip'),
+                Infolists\Components\TextEntry::make('city'),
+                Infolists\Components\TextEntry::make('state'),
+                Infolists\Components\TextEntry::make('country.name'),
+            ]);
+    }
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            -&gt;schema([
+                Forms\Components\TextInput::make('street'),
+                Forms\Components\TextInput::make('zip'),
+                Forms\Components\TextInput::make('city'),
+                Forms\Components\TextInput::make('state'),
+                Forms\Components\Select::make('country')
+                    -&gt;searchable(),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            -&gt;columns([
+                Tables\Columns\TextColumn::make('street'),
+                Tables\Columns\TextColumn::make('zip'),
+                Tables\Columns\TextColumn::make('city'),
+                Tables\Columns\TextColumn::make('country.name'),
+            ])
+            -&gt;filters([
+                //
+            ])
+            -&gt;actions([
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+            ])
+            -&gt;groupedBulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
+    }
+}
+</code></pre>
+
+<p>Once the resource has been created and is all set, we can now tell Filament to reuse our form, table, and infolist code in our <code>AddressesRelationManager</code>.</p>
+
+<p>This is done via calling the respective form (<code>AddressResource::form</code>), table (<code>AddressResource::table</code>), and infolist (<code>AddressResource::infolist</code>) methods that were defined on <code>AddressResource</code>:</p>
+
+<pre><code class="language-php">&lt;?php
+
+namespace App\Filament\Resources\UserResource\RelationManagers;
+
+use App\Filament\Resources\AddressResource;
+use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables\Table;
+
+class AddressesRelationManager extends RelationManager
+{
+    protected static string $relationship = 'addresses';
+
+    public function form(Form $form): Form
+    {
+        return AddressResource::form($form);
+    }
+
+    public function table(Table $table): Table
+    {
+        return AddressResource::table($table);
+    }
+
+    public function infolist(Infolist $infolist): Infolist
+    {
+        return AddressResource::infolist($infolist);
+    }
+}
+</code></pre>
+
+<p>We did it! That's all we need.</p>
+
+<p>Depending on your use case, you can decide to reuse just one of the methods (e.g. just the form) or all of them like in the code above.</p>
+
+<h2>Extra tip! Adding an action to the relation manager without overwriting the resource's original actions</h2>
+
+<p>Let's say you want to add a new table action just to the relation manager while keeping the resource's original table actions. You can achieve this by calling <code>$table-&gt;getActions()</code> to retrieve the resource's actions, and adding the extra actions (e.g. <code>DetachAction</code>) in your <code>actions</code> method (we can also apply the same for bulk actions):</p>
+
+<pre><code class="language-php">class AddressesRelationManager extends RelationManager
+{
+    // ...
+
+    public function table(Table $table): Table
+    {
+        return AddressResource::table($table)
+            -&gt;headerActions([
+                Tables\Actions\AttachAction::make(),
+                Tables\Actions\CreateAction::make(),
+            ])
+            -&gt;actions([
+                ...$table-&gt;getActions(),
+                Tables\Actions\DetachAction::make(),
+            ])
+            -&gt;bulkActions([
+                ...$table-&gt;getBulkActions(),
+                Tables\Actions\DetachBulkAction::make(),
+            ]);
+     }
+}
+</code></pre>
+
+<p>You can check out more about Filament's relation manager and its capabilities by <a href="https://filamentphp.com/docs/3.x/panels/resources/relation-managers#creating-a-relation-manager">visiting the Filament PHP documentation</a>.</p>
+
+<p>Thanks for reading and see you next time! :)</p>
+    </div>
+
+    <nav class="flex justify-between text-sm md:text-base">
+        <div>
+                            <a href="https://andreia.github.io/blog/2024-06-22/searching-git-history-for-a-string" title="Older Post: Uncovering Code Mysteries - Exploring Git History with the Pickaxe Option">
+                    &LeftArrow; Uncovering Code Mysteries - Exploring Git History with the Pickaxe Option
+                </a>
+                    </div>
+
+        <div>
+                            <a href="https://andreia.github.io/blog/2025-02-09/filament-php-nord-theme" title="Newer Post: Arctic Nord Theme for Filament PHP">
+                    Arctic Nord Theme for Filament PHP &RightArrow;
+                </a>
+                    </div>
+    </nav>
+
+    <div class='comments'>
+                    <Disqus shortname="andreiabohnergithub" />
+            </div>
+            </main>
+
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js?id=4298c6b43295a622640b0114ea9f4284"></script>
+
+        <script>
+    const navMenu = {
+        toggle() {
+            const menu = document.getElementById('js-nav-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('lg:block');
+            document.getElementById('js-nav-menu-hide').classList.toggle('hidden');
+            document.getElementById('js-nav-menu-show').classList.toggle('hidden');
+        },
+    }
+</script>
+    </body>
+</html>

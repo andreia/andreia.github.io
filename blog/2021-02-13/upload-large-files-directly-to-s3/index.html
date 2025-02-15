@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSFL0DCNF"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LRSFL0DCNF');
+            </script>
+                <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Upload large files directly to AWS S3 with Laravel (backend) and Uppy (frontend) using multipart upload.">
+        <meta name="author" content="Andréia Bohner"/>
+        <meta name="robots" content="index,follow,max-image-preview:large"/>
+
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
+        <meta property="og:title" content="Upload large files directly to S3 using Laravel and Uppy | Andréia Bohner"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3"/>
+        <meta property="og:description" content="Upload large files directly to AWS S3 with Laravel (backend) and Uppy (frontend) using multipart upload." />
+        <meta property="og:image" content="/assets/img/post-cover-flowers.jpg" />
+        <meta name="twitter:title" content="Upload large files directly to S3 using Laravel and Uppy">
+        <meta name="twitter:description" content="Upload large files directly to AWS S3 with Laravel (backend) and Uppy (frontend) using multipart upload.">
+        <meta name="twitter:image" content="/assets/img/post-cover-flowers.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@andreiabohner">
+        <meta name="twitter:creator" content="@andreiabohner">
+        <meta name="twitter:url" content="https://andreia.github.io/blog/2021-02-13/upload-large-files-directly-to-s3"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
+
+        <title>Upload large files directly to S3 using Laravel and Uppy | Andréia Bohner</title>
+
+        <link rel="home" href="https://andreia.github.io">
+        <link rel="icon" href="/favicon.png">
+        <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Andréia Bohner Atom Feed">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/build/css/main.css?id=30101e1bea703a6c69fe2c558da1b7ee">
+    </head>
+
+    <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="Andréia Bohner home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        <nav class="hidden lg:flex items-center justify-end text-lg">
+    <a title="Andréia Bohner Blog" href="/blog"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Blog
+    </a>
+
+    <a title="Andréia Bohner Bookshelf" href="/bookshelf"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Bookshelf
+    </a>
+
+    <a title="Andréia Bohner About" href="/about"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        About
+    </a>
+
+    <a title="Andréia Bohner Contact" href="/contact"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Contact
+    </a>
+</nav>
+
+                        <button class="flex justify-center items-center bg-blue-500 border border-blue-500 h-10 px-5 rounded-full lg:hidden focus:outline-none"
+    onclick="navMenu.toggle()"
+>
+    <svg id="js-nav-menu-show" xmlns="http://www.w3.org/2000/svg"
+        class="fill-current text-white h-9 w-4" viewBox="0 0 32 32"
+    >
+        <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
+    </svg>
+
+    <svg id="js-nav-menu-hide" xmlns="http://www.w3.org/2000/svg"
+        class="hidden fill-current text-white h-9 w-4" viewBox="0 0 36 30"
+    >
+        <polygon points="32.8,4.4 28.6,0.2 18,10.8 7.4,0.2 3.2,4.4 13.8,15 3.2,25.6 7.4,29.8 18,19.2 28.6,29.8 32.8,25.6 22.2,15 "/>
+    </svg>
+</button>
+
+                    </div>
+                </div>
+            </header>
+
+            <nav id="js-nav-menu" class="nav-menu hidden lg:hidden">
+    <ul class="my-0">
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Blog"
+                href="/blog"
+                class="nav-menu__item hover:text-pink-500 "
+            >Blog</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner About"
+                href="/about"
+                class="nav-menu__item hover:text-pink-500 "
+            >About</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Contact"
+                href="/contact"
+                class="nav-menu__item hover:text-pink-500 "
+            >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                            <img src="/assets/img/post-cover-flowers.jpg" alt="Upload large files directly to S3 using Laravel and Uppy cover image" class="mb-2">
+    
+    <h1 class="leading-none mb-2">Upload large files directly to S3 using Laravel and Uppy</h1>
+
+    <p class="text-gray-700 text-xl md:mt-0">Andréia Bohner  •  February 13, 2021</p>
+
+                        <a
+                href="/blog/categories/upload"
+                title="View posts in upload"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >upload</a>
+                    <a
+                href="/blog/categories/laravel"
+                title="View posts in laravel"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >laravel</a>
+                    <a
+                href="/blog/categories/s3"
+                title="View posts in s3"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >s3</a>
+            
+    <div class="border-b border-pink-200 mb-10 pb-4" v-pre>
+        <p>Dealing with large file uploads can be tricky. An optimized solution is to upload directly to Amazon S3 using multipart upload, preventing server overload.</p>
+
+<p>When using AWS SDKs, REST API, or AWS CLI, Amazon S3 allows you upload a file up to <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/upload-objects.html">5Gb in a single operation</a>. To upload files larger than 5Gb you <em>must</em> use multipart upload.</p>
+
+<p>If you have already ventured into coding S3 multipart uploads, you probably know that debugging is the most fun part. You can get lost with obscure CORS messages that have nothing to do with CORS at all. You have to analyze every request, header, and the code behind the scenes to get a clue of what is wrong.</p>
+
+<p>I've had the absolute joy of working with a great team on my first Laravel package to simplify this task: <a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload">Multipart Uploads using Laravel, AWS S3, and Uppy</a>. If you are working with large file uploads to S3, this package will be very handy! It has everything you need to upload, you'll only have to configure few things and you're ready to go.</p>
+
+<p>Briefly, the package upload files directly to S3 using multipart upload and returns the URL of the uploaded file. You can pause and abort the upload. It uses the amazing <a href="https://uppy.io">Uppy</a> library for the frontend.</p>
+
+<p>To add the HTML and JS required to get Uppy working it uses a Blade component (<code>&lt;x-input.uppy /&gt;</code>).
+Alternatively, you can change the template code by publishing the package view or you can create your own template in your app (please see below on "View and JS Configuration").</p>
+
+<p>Let's start!</p>
+
+<h2>Installing</h2>
+
+<h3>Install using Composer</h3>
+
+<pre><code class="language-bash">composer require tapp/laravel-uppy-s3-multipart-upload
+</code></pre>
+
+<h3>Add required JS libraries</h3>
+
+<p>Add on your package.json file the Uppy JS libraries and AlpineJS library:</p>
+
+<pre><code class="language-javascript">    ...
+    "devDependencies": {
+        "alpinejs": "^2.7.3",
+        ...
+    },
+    "dependencies": {
+        "@uppy/aws-s3-multipart": "^1.8.12",
+        "@uppy/core": "^1.16.0",
+        "@uppy/drag-drop": "^1.4.24",
+        "@uppy/status-bar": "^1.9.0",
+        ...
+    }
+    ...
+</code></pre>
+
+<p>Add in your <code>resources/js/bootstrap.js</code> file:</p>
+
+<pre><code class="language-javascript">...
+
+require('@uppy/core/dist/style.min.css')
+require('@uppy/drag-drop/dist/style.min.css')
+require('@uppy/status-bar/dist/style.min.css')
+
+import Uppy from '@uppy/core'
+import DragDrop from '@uppy/drag-drop'
+import StatusBar from '@uppy/status-bar'
+import AwsS3Multipart from '@uppy/aws-s3-multipart'
+
+window.Uppy = Uppy
+window.DragDrop = DragDrop
+window.StatusBar = StatusBar
+window.AwsS3Multipart = AwsS3Multipart
+</code></pre>
+
+<p>Add in your <code>resources/js/app.js</code>:</p>
+
+<pre><code class="language-javascript">...
+require('alpinejs');
+</code></pre>
+
+<p>Install JS libraries:</p>
+
+<pre><code>$ npm install
+$ npm run dev
+</code></pre>
+
+<h3>Publish config file</h3>
+
+<pre><code class="language-bash">php artisan vendor:publish --tag=uppy-s3-multipart-upload-config
+</code></pre>
+
+<h3>AWS S3 Setup</h3>
+
+<p>The package installs the AWS SDK for PHP and use Laravel's default s3 disk configuration from <code>filesystems.php</code> file.</p>
+
+<p>You just have to add your S3 keys, region, and bucket using the following env vars in your <code>.env</code> file:</p>
+
+<pre><code>AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=
+AWS_BUCKET=
+AWS_URL="https://s3.amazonaws.com"
+AWS_POST_END_POINT="https://${AWS_BUCKET}.s3.amazonaws.com/"
+</code></pre>
+
+<p>To allow direct multipart uploads to your S3 bucket, you need to add some extra configuration on bucket's CORS configuration. On your AWS S3 console, select your bucket. Click on "Permissions" tab. On "CORS configuration" add the following configuration:</p>
+
+<pre><code>[
+    {
+        "AllowedHeaders": [
+            "Authorization",
+            "x-amz-date",
+            "x-amz-content-sha256",
+            "content-type"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE",
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ]
+    }
+]
+</code></pre>
+
+<p>On AllowedOrigins:</p>
+
+<pre><code>"AllowedOrigins": [
+    "*"
+]
+</code></pre>
+
+<p>You should list the URLs allowed, e.g.:</p>
+
+<pre><code>"AllowedOrigins": [
+    "https://example.com"
+]
+</code></pre>
+
+<h2>Using</h2>
+
+<p>To begin uploading files, simply add a hidden field that will receive the S3 URL of the uploaded file, and the uppy blade component to your form in your view file:</p>
+
+<pre><code class="language-html">&lt;input type="hidden" name="file" id="file" /&gt;
+&lt;x-input.uppy /&gt;
+</code></pre>
+
+<p>Now you're ready to start uploading big files directly to S3!</p>
+
+<p><img src="/assets/img/upload-large-files-s3.png" alt="File uploaded" /></p>
+
+<h2>Let's break it down</h2>
+
+<p>You can also configure it to best suit your needs:</p>
+
+<h3>S3 Configuration</h3>
+
+<p>On the package configuration file (<code>/config/uppy-s3-multipart-upload.php</code>), you can setup:</p>
+
+<p><code>s3.bucket.folder</code> - the folder to store the uploaded files in your bucket</p>
+
+<p><code>s3.presigned_url.expiry_time</code> - the expiration time of the presigned URLs used to upload the parts</p>
+
+<pre><code>return [
+    's3' =&gt; [
+        'bucket' =&gt; [
+            /*
+             * Folder on bucket to save the file
+             */
+            'folder' =&gt; 'videos',
+        ],
+        'presigned_url' =&gt; [
+            /*
+             * Expiration time of the presigned URLs
+             */
+            'expiry_time' =&gt; '+30 minutes',
+        ],
+    ],
+];
+</code></pre>
+
+<h3>View and JS Configuration</h3>
+
+<h4>Customizing the <code>uppy</code> component</h4>
+
+<h5>Passing data</h5>
+
+<p>You can configure the <code>uppy</code> component by passing data to it:</p>
+
+<p><a href="https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component">https://github.com/TappNetwork/laravel-uppy-s3-multipart-upload#passing-data-to-the-uppy-blade-component</a></p>
+
+<h5>Changing the HTML and JS</h5>
+
+<p>First, publish it to your project with:</p>
+
+<pre><code class="language-bash">php artisan vendor:publish --tag=uppy-s3-multipart-upload-views
+</code></pre>
+
+<pre><code class="language-bash">Copied Directory [/vendor/tapp/laravel-uppy-s3-multipart-upload/resources/views]
+To [/resources/views/vendor/uppy-s3-multipart-upload]
+Publishing complete.
+</code></pre>
+
+<p>Now you can change the <code>/resources/views/vendor/uppy-s3-multipart-upload/components/input/uppy.blade.php</code> file.</p>
+
+<h4>Rewriting the view</h4>
+
+<p>You can write your own view and JS. The only required part is the Uppy's <code>AwsS3Multipart</code> as follows:</p>
+
+<pre><code class="language-javascript">    Uppy
+      .use(AwsS3Multipart, {
+          companionUrl: '/',
+          companionHeaders:
+          {
+              'X-CSRF-TOKEN': window.csrfToken,
+          },
+      })
+</code></pre>
+
+<h2>Sample App</h2>
+
+<p>Here's a <a href="https://github.com/andreia/laravel-uppy-upload-app">sample Laravel app</a> to demonstrate the package usage.</p>
+
+<h2>That's all folks!</h2>
+
+<p>This is the pre-release of the package and it has more features to add :)</p>
+
+<p>I would really love to hear your feedback!</p>
+    </div>
+
+    <nav class="flex justify-between text-sm md:text-base">
+        <div>
+                            <a href="https://andreia.github.io/blog/2021-01-25/using-rollbar-with-vapor" title="Older Post: Using Rollbar with Vapor">
+                    &LeftArrow; Using Rollbar with Vapor
+                </a>
+                    </div>
+
+        <div>
+                            <a href="https://andreia.github.io/blog/2021-02-28/quick-reference-on-installing-composer-packages" title="Newer Post: Quick reference on installing Composer packages from different sources">
+                    Quick reference on installing Composer packages from different sources &RightArrow;
+                </a>
+                    </div>
+    </nav>
+
+    <div class='comments'>
+                    <Disqus shortname="andreiabohnergithub" />
+            </div>
+            </main>
+
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js?id=4298c6b43295a622640b0114ea9f4284"></script>
+
+        <script>
+    const navMenu = {
+        toggle() {
+            const menu = document.getElementById('js-nav-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('lg:block');
+            document.getElementById('js-nav-menu-hide').classList.toggle('hidden');
+            document.getElementById('js-nav-menu-show').classList.toggle('hidden');
+        },
+    }
+</script>
+    </body>
+</html>
