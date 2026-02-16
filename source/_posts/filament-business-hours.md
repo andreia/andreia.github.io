@@ -13,27 +13,23 @@ comments: true
 
 If you've ever built a store locator, a restaurant site, or a booking system, you know that "Business Hours" are a secret nightmare.
 
-At first glance, it seems simple. But as the project grows, so do the requirements. Split shifts (opening for lunch, closing, then reopening for dinner). Timezones. That one random Tuesday the shop is closed for a local holiday. You soon find yourself needing to handle special holiday hours, recurring exceptions, and the inevitable "but what about daylight saving time?"
-
-Then the requirements start rolling in: "Oh, and we close early on Tuesdays.", "We need to block out Christmas week.", "What about our summer hours?", "Can we handle different time zones?".
+At first glance, it seems simple. But as the project grows, so do the requirements. Split shifts (opening for lunch, closing, then reopening for dinner). Timezones. That one random Tuesday the shop is closed for a local holiday. Then come the special requests: "We close early on Tuesdays.", "We need to block out Christmas week.", "What about our summer hours?", "Can we handle different time zones?", "But what about daylight saving time?".
 
 What started as a simple text field turns into a tangled mess of conditionals, edge cases, and timezone headaches. You've built this same wheel a dozen times, and each time it's slightly different, slightly broken.
 
 ## Here's What You Actually Need
 
-Most business start with a simple requirement: "Display when we're open." However, as a project scales, you quickly run into technical bottlenecks:
+Most business start with a simple requirement: "Display when we're open.". However, as a project scales, you quickly run into technical bottlenecks:
 
-**Structural Constraints:** Hardcoding hours into a model makes it nearly impossible to query "Open Now" status across different timezones.
+**Structural Constraints:** hardcoding hours into a model makes it nearly impossible to query "Open Now" status across different timezones.
 
-**Complexity of Exceptions:** Handling a one-off holiday closure shouldn't require a developer to manually toggle a boolean in the database.
+**Complexity of Exceptions:** handling a one-off holiday closure shouldn't require a developer to manually toggle a boolean in the database.
 
-**User Experience:** Tables full of text-based hours are difficult for admins to scan and manage.
+**User Experience:** tables full of text-based hours are difficult for admins to scan and manage.
 
 When building applications for physical locations or service availability, like restaurants, medical clinics, hotels, booking systems, managing operating hours is a core requirement. Generic text fields or basic time pickers aren't enough when you need to answer: "Is this place open right now?"
 
-Business hours aren't simple. They're deceptively complex.
-
-You need multiple time slots per day (because that lunch break closure matters). You need exceptions for holidays. You need recurring patterns for annual events. You need timezone awareness. And you need it all wrapped in a UI that people will actually love using.
+You need multiple time slots per day, exceptions for holidays, recurring patterns for annual events, timezone awareness, and it all wrapped in a UI that people will actually love using.
 
 That's where **Filament Business Hours** comes in: a plugin built to streamline everything from simple opening hours to complex scheduling scenarios.
 
@@ -51,7 +47,7 @@ Special hours for Black Friday? Click "Set up exceptions," pick the date, adjust
 
 ## Behind the Scenes
 
-While you could build a series of repeaters and time pickers yourself, this plugin handles the heavy lifting of data structure and validation. It doesn't just store "9 to 5", it stores a flexible, queryable schedule that knows exactly when a business is open or closed at any given second.
+While you could build a series of repeaters and time pickers yourself, this plugin handles the heavy lifting of data structure and validation for you. It doesn't just store "9 to 5", it stores a flexible, queryable schedule that knows exactly when a business is open or closed at any given second.
 
 Under the hood, Filament Business Hours leverages the superpowers of [Spatie's Opening Hours](https://github.com/spatie/opening-hours) package. That means you get a battle-tested foundation for all the hard stuff: timezone calculations, exception handling, and elegant queries.
 
@@ -109,9 +105,7 @@ BusinessHoursEntry::make('businessHours')
 
 ![Screenshot: Exception modal showing date picker and recurring options](/assets/img/business-hours/business_hours_form_field_exceptions_modal.png)
 
-Multiple time slots per day? Check. Timezone support with a searchable dropdown? Check. Date ranges for exceptions? Check. Recurring annual events? Check. Built-in caching for performance? Check.
-
-It even includes a `HasBusinessHours` trait that adds the relationship and all the helper methods to any model. Attach it to a User, a Store, a Restaurant, a Clinic, or whatever needs business hours.
+And it comes with a `HasBusinessHours` trait that adds the relationship and all the helper methods to any model. Attach it to a User, a Store, a Restaurant, a Clinic, or whatever needs business hours.
 
 ## Get Started in Minutes
 
@@ -135,8 +129,8 @@ Have you built business hours functionality before? What challenges did you run 
 
 Or maybe you've already tried Filament Business Hours and have feedback to share? I'd genuinely love to hear about your experiences, whether it's war stories from custom implementations or insights from using this plugin in production.
 
-Drop a comment below or ping me at andreiabohner@gmail.com. Your real-world scenarios help make this plugin better for everyone.
+Drop a comment below - or on X, [Threads](https://www.threads.com/@devdeia/post/DU03BrIDeD7) - or ping me at andreiabohner@gmail.com. Your real-world scenarios help make this plugin better for everyone.
 
 ---
 
-*Filament Business Hours requires PHP 8.2+ and Filament 3+. Built on Spatie's Opening Hours, Filament Timezone Field, and Filament Table Repeater (for Filament v3, for v4 and v5 it uses the native table repeater).*
+*Filament Business Hours requires PHP 8.2+ and Filament 3+. Built on [Spatie's Opening Hours](https://github.com/spatie/opening-hours), [Filament Timezone Field](https://github.com/TappNetwork/filament-timezone-field), and [Filament Table Repeater](https://github.com/awcodes/filament-table-repeater) (for Filament v3, for v4 and v5 it uses the native table repeater).*
