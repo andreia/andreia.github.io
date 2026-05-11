@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSFL0DCNF"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LRSFL0DCNF');
+            </script>
+                <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Business hours seem simple until you need split shifts, timezone support, and holiday exceptions. Discover how Filament Business Hours streamlines everything from basic opening hours to complex scheduling scenarios with a beautiful interface and clean powerful query methods you&#039;ll love.">
+        <meta name="author" content="Andréia Bohner"/>
+        <meta name="robots" content="index,follow,max-image-preview:large"/>
+
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
+        <meta property="og:title" content="Stop Wrestling with Business Hours. There&#039;s a Better Way. | Andréia Bohner"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://andreia.github.io/blog/2026-02-15/filament-business-hours"/>
+        <meta property="og:description" content="Business hours seem simple until you need split shifts, timezone support, and holiday exceptions. Discover how Filament Business Hours streamlines everything from basic opening hours to complex scheduling scenarios with a beautiful interface and clean powerful query methods you&#039;ll love." />
+        <meta property="og:image" content="/assets/img/post-cover-filament-business-hours.jpg" />
+        <meta name="twitter:title" content="Stop Wrestling with Business Hours. There&#039;s a Better Way.">
+        <meta name="twitter:description" content="Business hours seem simple until you need split shifts, timezone support, and holiday exceptions. Discover how Filament Business Hours streamlines everything from basic opening hours to complex scheduling scenarios with a beautiful interface and clean powerful query methods you'll love.">
+        <meta name="twitter:image" content="/assets/img/post-cover-filament-business-hours.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@andreiabohner">
+        <meta name="twitter:creator" content="@andreiabohner">
+        <meta name="twitter:url" content="https://andreia.github.io/blog/2026-02-15/filament-business-hours"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
+
+        <title>Stop Wrestling with Business Hours. There&#039;s a Better Way. | Andréia Bohner</title>
+
+        <link rel="home" href="https://andreia.github.io">
+        <link rel="icon" href="/favicon.png">
+        <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Andréia Bohner Atom Feed">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/build/css/main.css?id=59e072047eb09e3a9c013a6da984cbf7">
+    </head>
+
+    <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="Andréia Bohner home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        <nav class="hidden lg:flex items-center justify-end text-lg">
+    <a title="Andréia Bohner Blog" href="/blog"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Blog
+    </a>
+
+    <a title="Andréia Bohner Bookshelf" href="/bookshelf"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Bookshelf
+    </a>
+
+    <a title="Andréia Bohner About" href="/about"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        About
+    </a>
+
+    <a title="Andréia Bohner Contact" href="/contact"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Contact
+    </a>
+</nav>
+
+                        <button class="flex justify-center items-center bg-blue-500 border border-blue-500 h-10 px-5 rounded-full lg:hidden focus:outline-none"
+    onclick="navMenu.toggle()"
+>
+    <svg id="js-nav-menu-show" xmlns="http://www.w3.org/2000/svg"
+        class="fill-current text-white h-9 w-4" viewBox="0 0 32 32"
+    >
+        <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
+    </svg>
+
+    <svg id="js-nav-menu-hide" xmlns="http://www.w3.org/2000/svg"
+        class="hidden fill-current text-white h-9 w-4" viewBox="0 0 36 30"
+    >
+        <polygon points="32.8,4.4 28.6,0.2 18,10.8 7.4,0.2 3.2,4.4 13.8,15 3.2,25.6 7.4,29.8 18,19.2 28.6,29.8 32.8,25.6 22.2,15 "/>
+    </svg>
+</button>
+
+                    </div>
+                </div>
+            </header>
+
+            <nav id="js-nav-menu" class="nav-menu hidden lg:hidden">
+    <ul class="my-0">
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Blog"
+                href="/blog"
+                class="nav-menu__item hover:text-pink-500 "
+            >Blog</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner About"
+                href="/about"
+                class="nav-menu__item hover:text-pink-500 "
+            >About</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Contact"
+                href="/contact"
+                class="nav-menu__item hover:text-pink-500 "
+            >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                            <img src="/assets/img/post-cover-filament-business-hours.jpg" alt="Stop Wrestling with Business Hours. There&#039;s a Better Way. cover image" class="mb-2">
+    
+    <h1 class="leading-none mb-2">Stop Wrestling with Business Hours. There&#039;s a Better Way.</h1>
+
+    <p class="text-gray-700 text-xl md:mt-0">Andréia Bohner  •  February 15, 2026</p>
+
+                        <a
+                href="/blog/categories/filament"
+                title="View posts in filament"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >filament</a>
+                    <a
+                href="/blog/categories/laravel"
+                title="View posts in laravel"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >laravel</a>
+            
+    <div class="border-b border-pink-200 mb-10 pb-4" v-pre>
+        <p>If you've ever built a store locator, a restaurant site, or a booking system, you know that "Business Hours" are a secret nightmare.</p>
+
+<p>At first glance, it seems simple. But as the project grows, so do the requirements. Split shifts (opening for lunch, closing, then reopening for dinner). Timezones. That one random Tuesday the shop is closed for a local holiday. Then come the special requests: "We close early on Tuesdays.", "We need to block out Christmas week.", "What about our summer hours?", "Can we handle different time zones?", "But what about daylight saving time?".</p>
+
+<p>What started as a simple text field turns into a tangled mess of conditionals, edge cases, and timezone headaches. You've built this same wheel a dozen times, and each time it's slightly different, slightly broken.</p>
+
+<h2>Here's What You Actually Need</h2>
+
+<p>Most business start with a simple requirement: "Display when we're open.". However, as a project scales, you quickly run into technical bottlenecks:</p>
+
+<p><strong>Structural Constraints:</strong> hardcoding hours into a model makes it nearly impossible to query "Open Now" status across different timezones.</p>
+
+<p><strong>Complexity of Exceptions:</strong> handling a one-off holiday closure shouldn't require a developer to manually toggle a boolean in the database.</p>
+
+<p><strong>User Experience:</strong> tables full of text-based hours are difficult for admins to scan and manage.</p>
+
+<p>When building applications for physical locations or service availability, like restaurants, medical clinics, hotels, booking systems, managing operating hours is a core requirement. Generic text fields or basic time pickers aren't enough when you need to answer: "Is this place open right now?"</p>
+
+<p>You need multiple time slots per day, exceptions for holidays, recurring patterns for annual events, timezone awareness, and it all wrapped in a UI that people will actually love using.</p>
+
+<p>That's where <strong>Filament Business Hours</strong> comes in: a plugin built to streamline everything from simple opening hours to complex scheduling scenarios.</p>
+
+<h2>It Just Works the Way You'd Expect</h2>
+
+<p>Picture this: Your client opens the form. They see a clean interface with toggles for each day of the week. Click. Monday is open. Add a time slot: 9:00 AM to 5:00 PM. Need a lunch break? Add another slot: 9:00 AM to 12:00 PM, then 1:00 PM to 5:00 PM.</p>
+
+<p>Done.</p>
+
+<p><img src="/assets/img/business-hours/business_hours_form_field1.png" alt="Screenshot: Clean business hours interface with day toggles and time slots" /></p>
+
+<p>Special hours for Black Friday? Click "Set up exceptions," pick the date, adjust the hours. Annual Christmas closure? Set it to recur every year. The whole thing takes seconds.</p>
+
+<p><strong>Want to see it in action?</strong>  <a href="https://www.youtube.com/watch?v=5gXI0v3BwAU" title="Check out the demo video"><img src="/assets/img/business-hours/youtube_cover.jpg" alt="Check out the demo video" /></a></p>
+
+<h2>Behind the Scenes</h2>
+
+<p>While you could build a series of repeaters and time pickers yourself, this plugin handles the heavy lifting of data structure and validation for you. It doesn't just store "9 to 5", it stores a flexible, queryable schedule that knows exactly when a business is open or closed at any given second.</p>
+
+<p>Under the hood, Filament Business Hours leverages the superpowers of <a href="https://github.com/spatie/opening-hours">Spatie's Opening Hours</a> package. That means you get a battle-tested foundation for all the hard stuff: timezone calculations, exception handling, and elegant queries.</p>
+
+<p>Want to check if a business is open right now? One line:</p>
+
+<pre><code class="language-php">$business-&gt;isOpen();
+</code></pre>
+
+<p>Need to know when they'll open next? Just call:</p>
+
+<pre><code class="language-php">$nextOpen = $business-&gt;nextOpen();
+</code></pre>
+
+<p>The complexity is hidden. The code is clean and readable.</p>
+
+<h2>Built for Real Projects</h2>
+
+<p>Thoughtfully crafted to include everything you'd expect with a pleasant and intuitive UI:</p>
+
+<p><strong>The form field</strong> gives your users an intuitive interface with visual feedback. Open days are highlighted. Closed days are grayed out. Time zones are searchable. It just works beautifully.</p>
+
+<pre><code class="language-php">use Andreia\FilamentBusinessHours\Forms\Components\BusinessHoursField;
+
+BusinessHoursField::make('businessHours')
+    -&gt;allowExceptions()
+</code></pre>
+
+<p><img src="/assets/img/business-hours/business_hours_form_field_exceptions.png" alt="Screenshot: Business Hours form field with exception management" /></p>
+
+<p><strong>The table column</strong> shows business hours at a glance with interactive circles and tooltips. Admin users can see the full week's schedule without clicking through to the detail view.</p>
+
+<pre><code class="language-php">use Andreia\FilamentBusinessHours\Tables\Columns\BusinessHoursColumn;
+
+BusinessHoursColumn::make('businessHours')
+</code></pre>
+
+<p><img src="/assets/img/business-hours/business_hours_table_column1.png" alt="Screenshot: Table view showing business hours circles with time slot tooltip" />
+<img src="/assets/img/business-hours/business_hours_table_column2.png" alt="Screenshot: Table view showing business hours circles with closed tooltip" /></p>
+
+<p><strong>The infolist entry</strong> displays formatted hours with timezone information and exceptions, perfect for detailed views.</p>
+
+<pre><code class="language-php">use Andreia\FilamentBusinessHours\Infolists\Components\BusinessHoursEntry;
+
+BusinessHoursEntry::make('businessHours')
+</code></pre>
+
+<p><img src="/assets/img/business-hours/business_hours_infolist.png" alt="Screenshot: Infolist entry showing formatted business hours" /></p>
+
+<p><strong>Exception management</strong> handles the messy reality of business operations: holidays, seasonal hours, one-off closures, and recurring annual events.</p>
+
+<p><img src="/assets/img/business-hours/business_hours_form_field_exceptions_modal.png" alt="Screenshot: Exception modal showing date picker and recurring options" /></p>
+
+<p>And it comes with a <code>HasBusinessHours</code> trait that adds the relationship and all the helper methods to any model. Attach it to a User, a Store, a Restaurant, a Clinic, or whatever needs business hours.</p>
+
+<h2>Get Started in Minutes</h2>
+
+<p>Installing is straightforward. Add the package through Composer, run the migrations, and you're ready to go. The <a href="https://github.com/andreia/filament-business-hours-docs">documentation</a> is clear and complete. The licensing is fair and flexible.</p>
+
+<p>Single project? There's a license for that. Building a SaaS with unlimited domains? There's a license for that too.</p>
+
+<p>The best part? You get a full year of updates and support. After that year, if you choose not to renew, you keep using the version you have. No forced upgrades. No recurring payments unless you want the latest features.</p>
+
+<p><strong>Let's make business hours effortless:</strong></p>
+
+<p><a href="https://checkout.anystack.sh/filament-business-hours">Get Filament Business Hours →</a></p>
+
+<p>Watch the <a href="https://www.youtube.com/watch?v=5gXI0v3BwAU">feature video</a> to see it in action, or check out the <a href="https://github.com/andreia/filament-business-hours-docs">full documentation</a> on GitHub.</p>
+
+<p>Questions? Reach out at andreiabohner@gmail.com. I'd love to hear from you.</p>
+
+<h2>What's Your Experience?</h2>
+
+<p>Have you built business hours functionality before? What challenges did you run into?</p>
+
+<p>Or maybe you've already tried Filament Business Hours and have feedback to share? I'd genuinely love to hear about your experiences, whether it's war stories from custom implementations or insights from using this plugin in production.</p>
+
+<p>Drop a comment below - or on X, <a href="https://www.threads.com/@devdeia/post/DU03BrIDeD7">Threads</a> - or ping me at andreiabohner@gmail.com. Your real-world scenarios help make this plugin better for everyone.</p>
+
+<hr />
+
+<p><em>Filament Business Hours requires PHP 8.2+ and Filament 3+. Built on <a href="https://github.com/spatie/opening-hours">Spatie's Opening Hours</a>, <a href="https://github.com/TappNetwork/filament-timezone-field">Filament Timezone Field</a>, and <a href="https://github.com/awcodes/filament-table-repeater">Filament Table Repeater</a> (for Filament v3, for v4 and v5 it uses the native table repeater).</em></p>
+    </div>
+
+    <nav class="flex justify-between text-sm md:text-base">
+        <div>
+                            <a href="https://andreia.github.io/blog/2025-02-09/filament-php-nord-theme" title="Older Post: Arctic Nord Theme for Filament PHP">
+                    &LeftArrow; Arctic Nord Theme for Filament PHP
+                </a>
+                    </div>
+
+        <div>
+                            <a href="https://andreia.github.io/blog/2026-05-10/filament-recurrence" title="Newer Post: Complete Recurrence With a Beautiful UI in Your Filament App in Less Than 10 Minutes">
+                    Complete Recurrence With a Beautiful UI in Your Filament App in Less Than 10 Minutes &RightArrow;
+                </a>
+                    </div>
+    </nav>
+
+    <div class='comments'>
+                    <Disqus shortname="andreiabohnergithub" />
+            </div>
+            </main>
+
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js?id=4298c6b43295a622640b0114ea9f4284"></script>
+
+        <script>
+    const navMenu = {
+        toggle() {
+            const menu = document.getElementById('js-nav-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('lg:block');
+            document.getElementById('js-nav-menu-hide').classList.toggle('hidden');
+            document.getElementById('js-nav-menu-show').classList.toggle('hidden');
+        },
+    }
+</script>
+    </body>
+</html>
