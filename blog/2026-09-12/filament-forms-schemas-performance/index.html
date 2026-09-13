@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+                    <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRSFL0DCNF"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-LRSFL0DCNF');
+            </script>
+                <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="Practical techniques for improving the performance of Filament forms and schemas — from debouncing to deferred schema loading">
+        <meta name="author" content="Andréia Bohner"/>
+        <meta name="robots" content="index,follow,max-image-preview:large"/>
+
+        <meta property="og:site_name" content="Andréia Bohner Blog" />
+        <meta property="og:title" content="7 Ways to Speed Up Filament Forms and Schemas | Andréia Bohner"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://andreia.github.io/blog/2026-09-12/filament-forms-schemas-performance"/>
+        <meta property="og:description" content="Practical techniques for improving the performance of Filament forms and schemas — from debouncing to deferred schema loading" />
+        <meta property="og:image" content="/assets/img/post-cover-filament-forms-schemas-performance.jpg" />
+        <meta name="twitter:title" content="7 Ways to Speed Up Filament Forms and Schemas">
+        <meta name="twitter:description" content="Livewire re-renders are what make Filament forms feel dynamic - and what can make them feel sluggish. Here are 7 built-in techniques, from debounced fields to deferred schema loading, for keeping large forms fast.">
+        <meta name="twitter:image" content="/assets/img/post-cover-filament-forms-schemas-performance.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@andreiabohner">
+        <meta name="twitter:creator" content="@andreiabohner">
+        <meta name="twitter:url" content="https://andreia.github.io/blog/2026-09-12/filament-forms-schemas-performance"/>
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content="Andréia Bohner" />
+
+        <title>7 Ways to Speed Up Filament Forms and Schemas | Andréia Bohner</title>
+
+        <link rel="home" href="https://andreia.github.io">
+        <link rel="icon" href="/favicon.png">
+        <link href="/blog/feed.atom" type="application/atom+xml" rel="alternate" title="Andréia Bohner Atom Feed">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,700,700i,800,800i" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/build/css/main.css?id=59e072047eb09e3a9c013a6da984cbf7">
+    </head>
+
+    <body class="flex flex-col justify-between min-h-screen bg-gray-100 text-gray-800 leading-normal font-sans">
+        <div id="app">
+            <header class="flex items-center shadow bg-white border-b h-24 py-4" role="banner">
+                <div class="container flex items-center max-w-8xl mx-auto px-4 lg:px-8">
+                    <div class="flex items-center">
+                        <a href="/" title="Andréia Bohner home" class="inline-flex items-center">
+                            <h1 class="transition duration-500 ease-in-out text-lg md:text-xl text-pink-500 font-semibold hover:text-pink-700 my-0">~/andreia-bohner$</h1>
+                            <div class="pl-3 animate-pulsefast flex space-x-4">
+                                <div class="bg-pink-400 h-4 w-2"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="vue-search" class="flex flex-1 justify-end items-center">
+                        <search></search>
+
+                        <nav class="hidden lg:flex items-center justify-end text-lg">
+    <a title="Andréia Bohner Blog" href="/blog"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Blog
+    </a>
+
+    <a title="Andréia Bohner Bookshelf" href="/bookshelf"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Bookshelf
+    </a>
+
+    <a title="Andréia Bohner About" href="/about"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        About
+    </a>
+
+    <a title="Andréia Bohner Contact" href="/contact"
+        class="ml-6 text-gray-700 hover:text-pink-600 ">
+        Contact
+    </a>
+</nav>
+
+                        <button class="flex justify-center items-center bg-blue-500 border border-blue-500 h-10 px-5 rounded-full lg:hidden focus:outline-none"
+    onclick="navMenu.toggle()"
+>
+    <svg id="js-nav-menu-show" xmlns="http://www.w3.org/2000/svg"
+        class="fill-current text-white h-9 w-4" viewBox="0 0 32 32"
+    >
+        <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z"/>
+    </svg>
+
+    <svg id="js-nav-menu-hide" xmlns="http://www.w3.org/2000/svg"
+        class="hidden fill-current text-white h-9 w-4" viewBox="0 0 36 30"
+    >
+        <polygon points="32.8,4.4 28.6,0.2 18,10.8 7.4,0.2 3.2,4.4 13.8,15 3.2,25.6 7.4,29.8 18,19.2 28.6,29.8 32.8,25.6 22.2,15 "/>
+    </svg>
+</button>
+
+                    </div>
+                </div>
+            </header>
+
+            <nav id="js-nav-menu" class="nav-menu hidden lg:hidden">
+    <ul class="my-0">
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Blog"
+                href="/blog"
+                class="nav-menu__item hover:text-pink-500 "
+            >Blog</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner About"
+                href="/about"
+                class="nav-menu__item hover:text-pink-500 "
+            >About</a>
+        </li>
+        <li class="pl-4">
+            <a
+                title="Andréia Bohner Contact"
+                href="/contact"
+                class="nav-menu__item hover:text-pink-500 "
+            >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+            <main role="main" class="flex-auto w-full container max-w-4xl mx-auto py-16 pb-0 px-6">
+                            <img src="/assets/img/post-cover-filament-forms-schemas-performance.jpg" alt="7 Ways to Speed Up Filament Forms and Schemas cover image" class="mb-2">
+    
+    <h1 class="leading-none mb-2">7 Ways to Speed Up Filament Forms and Schemas</h1>
+
+    <p class="text-gray-700 text-xl md:mt-0">Andréia Bohner  •  September 12, 2026</p>
+
+                        <a
+                href="/blog/categories/filament"
+                title="View posts in filament"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >filament</a>
+                    <a
+                href="/blog/categories/laravel"
+                title="View posts in laravel"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >laravel</a>
+                    <a
+                href="/blog/categories/performance"
+                title="View posts in performance"
+                class="inline-block bg-gray-300 hover:bg-pink-200 leading-loose tracking-wide text-gray-800 uppercase text-xs font-semibold rounded mr-4 px-3 pt-px"
+            >performance</a>
+            
+    <div class="border-b border-pink-200 mb-10 pb-4" v-pre>
+        <p>Filament forms are built on Livewire, which means every reactive interaction - a <code>live()</code> field changing, a repeater item expanding - can trigger a network round-trip and a full re-render of the component. That's great for developer experience  (you get reactivity without writing JavaScript) but it comes at a cost to the user: on large, deeply nested forms it can start to feel sluggish.</p>
+
+<p>The good news: Filament ships with several tools to control <em>when</em> and <em>how much</em> gets rendered.</p>
+
+<p>Here are seven of them:</p>
+
+<h2>1. Defer the loading of expensive parts of a schema</h2>
+
+<p>If a <code>Repeater</code> or <code>Builder</code> renders items with heavy fields (rich editors, file uploads, nested repeaters), all of that gets built and sent to the browser on page load — even for items the user never opens. <code>deferLoading()</code> fixes this: pass a <code>Schema</code> object to <code>schema()</code> instead of a plain array, and each item's content is only rendered when it's expanded and enters the viewport.</p>
+
+<p><strong>Real-world case:</strong> a <code>product_variants</code> repeater on a product edit page, where each variant has an image, a rich description, and pricing fields.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
+
+Repeater::make('variants')
+    -&gt;relationship()
+    -&gt;schema(
+        Schema::make()
+            -&gt;components([
+                TextInput::make('sku')-&gt;required(),
+                TextInput::make('price')-&gt;numeric()-&gt;prefix('$'),
+                FileUpload::make('image')-&gt;image(),
+                RichEditor::make('description'),
+            ])
+            -&gt;deferLoading(),
+    )
+    -&gt;collapsed()
+    -&gt;itemLabel(fn (array $state): ?string =&gt; $state['sku'] ?? 'New variant')
+</code></pre>
+
+<p>With 20+ variants, this alone can cut initial page weight dramatically, since only the header/label of each collapsed item is rendered up front.</p>
+
+<p><code>deferLoading()</code> isn't limited to Repeater and Builder items, either. It's a general <code>Schema</code> method, so you can use it on the child schema of <em>any</em> component: a <code>Section</code>, a <code>Tabs</code> panel, a <code>Wizard</code> step, or a custom component. The main difference is that Repeater and Builder item schemas automatically get a unique key from their item's state path, while any other deferred schema needs one assigned explicitly with <code>key()</code>:</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+
+Section::make('Customer details')
+    -&gt;key('customerDetails')
+    -&gt;schema(
+        Schema::make()
+            -&gt;components([
+                TextInput::make('name'),
+                TextInput::make('email')-&gt;email(),
+            ])
+            -&gt;deferLoading(),
+    )
+</code></pre>
+
+<p>This is worth reaching for anywhere a schema renders expensive fields up front but the user might not scroll to or open it right away: a rarely-used advanced settings section, a secondary tab, a later step in a wizard.</p>
+
+<p>Check out <a href="https://filamentphp.com/docs/5.x/schemas/overview#deferring-the-loading-of-a-child-schema">the docs</a> for more details.</p>
+
+<h2>2. Debounce fields that trigger a request on every keystroke</h2>
+
+<p>Any <code>live()</code> field sends a request the moment its value changes. For text inputs, that means one request per keystroke — brutal for something like a live SKU or slug check. <code>live(debounce:)</code> waits for a pause in typing before firing.</p>
+
+<p><strong>Real-world case:</strong> checking whether a SKU is already taken as the user types.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use App\Models\Product;
+
+TextInput::make('sku')
+    -&gt;required()
+    -&gt;unique(ignoreRecord: true) // enforced server-side on submit
+    -&gt;live(debounce: 600) // wait 600ms after the user stops typing
+    -&gt;afterStateUpdated(function (?string $state, Set $set) {
+        $exists = Product::query()-&gt;where('sku', $state)-&gt;exists();
+
+        $set('sku_taken', $exists);
+    })
+    -&gt;helperText(fn (Get $get): ?string =&gt; $get('sku_taken') ? 'This SKU is already in use.' : null)
+</code></pre>
+
+<p>The <code>unique(ignoreRecord: true)</code> rule is what actually stops a duplicate SKU from being saved, it's checked on submit regardless of anything else. The <code>live(debounce:)</code> + <code>afterStateUpdated()</code> pair on top of that is a UX nicety: it warns the user <em>before</em> they submit, instead of letting them fill out the rest of the form and only finding out at the end. Skip either half and you either lose real validation or lose the early feedback.</p>
+
+<h2>3. Only react when the user leaves the field</h2>
+
+<p>If you don't need instant feedback, <code>live(onBlur: true)</code> is cheaper than debouncing. It fires once, when the field loses focus, instead of on a timer.</p>
+
+<p><strong>Real-world case:</strong> auto-generating a slug from a title, without sending a request on every keystroke as the title is typed.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Str;
+use Filament\Schemas\Components\Utilities\Set;
+
+TextInput::make('title')
+    -&gt;required()
+    -&gt;live(onBlur: true)
+    -&gt;afterStateUpdated(fn (Set $set, ?string $state) =&gt; $set('slug', Str::slug($state)))
+
+TextInput::make('slug')
+    -&gt;required()
+    -&gt;unique(ignoreRecord: true)
+</code></pre>
+
+<h2>4. Re-render only the components that actually depend on the change</h2>
+
+<p>By default, any <code>live()</code> update re-renders the <em>entire</em> schema, even if only one other field's label or value actually depends on it. <code>partiallyRenderComponentsAfterStateUpdated()</code> narrows that down to just the fields you name.</p>
+
+<p><strong>Real-world case:</strong> an order form where picking a product should update only the displayed unit price, not the whole schema.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Set;
+use App\Models\Product;
+
+Select::make('product_id')
+    -&gt;options(Product::query()-&gt;pluck('name', 'id'))
+    -&gt;live()
+    -&gt;partiallyRenderComponentsAfterStateUpdated(['unit_price'])
+    -&gt;afterStateUpdated(function (Set $set, ?string $state) {
+        $set('unit_price', Product::find($state)?-&gt;price);
+    })
+
+TextInput::make('unit_price')
+    -&gt;label('Unit price')
+    -&gt;numeric()
+    -&gt;prefix('$')
+    -&gt;disabled()
+    -&gt;dehydrated()
+</code></pre>
+
+<p>If only the <em>current</em> field's own content depends on its new value (e.g. a live preview below the field itself), use <code>partiallyRenderAfterStateUpdated()</code> instead — it re-renders just that one component.</p>
+
+<h2>5. Skip re-rendering entirely when you don't need it</h2>
+
+<p>Sometimes you want <code>afterStateUpdated()</code> to fire (to log something, dispatch an event, sync a session value) but you don't need the UI to change at all. <code>skipRenderAfterStateUpdated()</code> runs your logic without triggering a re-render.</p>
+
+<p><strong>Real-world case:</strong> tracking which step of a multi-select filter a user is on, for analytics, without ever needing the form itself to visually update.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\CheckboxList;
+
+CheckboxList::make('interests')
+    -&gt;options([
+        'web' =&gt; 'Web development',
+        'mobile' =&gt; 'Mobile development',
+        'design' =&gt; 'Design',
+    ])
+    -&gt;live()
+    -&gt;skipRenderAfterStateUpdated()
+    -&gt;afterStateUpdated(function (array $state) {
+        activity()-&gt;log('Updated interests filter: ' . implode(', ', $state));
+    })
+</code></pre>
+
+<h2>6. Go fully client-side for simple show/hide logic and dynamic text</h2>
+
+<p><code>hidden()</code> / <code>visible()</code> combined with <code>live()</code> need a server round-trip to re-evaluate. If the condition is simple (comparing another field's value), you can skip the network entirely with JavaScript-based alternatives.</p>
+
+<p><strong>Dynamic labels/content with <code>JsContent</code></strong> — methods that render HTML, like <code>label()</code> and <code>belowContent()</code> (which itself can accept a plain string or a <code>Text::make()</code> component), can also accept a <code>JsContent::make()</code> object instead. It's evaluated in the browser using <code>$get()</code>/<code>$state</code>, so the content updates instantly with no request.</p>
+
+<p><strong>Real-world case:</strong> greeting the user by name in a field label as soon as they type it, with no request.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\TextInput;
+use Filament\Schemas\JsContent;
+
+TextInput::make('name')
+
+TextInput::make('greetingResponse')
+    -&gt;label(JsContent::make(&lt;&lt;&lt;'JS'
+        $get('name') ? `Hello, ${$get('name')}!` : 'Hello, there!'
+        JS))
+</code></pre>
+
+<blockquote>
+  <p>⚠️ The string passed to <code>JsContent</code> is evaluated in the browser, so never concatenate raw user input into it as that would open the door to XSS.</p>
+</blockquote>
+
+<p><strong><code>hiddenJs()</code> / <code>visibleJs()</code></strong> — same idea, for showing/hiding a field.</p>
+
+<p><strong>Real-world case:</strong> showing company billing fields only when "this is a business purchase" is checked, instantly, with no request.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\TextInput;
+
+Checkbox::make('is_company')
+
+TextInput::make('company_name')
+    -&gt;visibleJs(&lt;&lt;&lt;'JS'
+        $get('is_company') === true
+        JS)
+    -&gt;required()
+
+TextInput::make('vat_number')
+    -&gt;visibleJs(&lt;&lt;&lt;'JS'
+        $get('is_company') === true
+        JS)
+</code></pre>
+
+<p>Note that <code>is_company</code> doesn't even need <code>live()</code> here. <code>$get()</code> inside the JS expression reads the client-side state directly.</p>
+
+<p>You can go further with <code>afterStateUpdatedJs()</code>, which lets you set <em>other</em> fields' values via JS (<code>$set()</code>) the moment a field changes. Again, no server round-trip.</p>
+
+<p><strong>Real-world case:</strong> keeping a "full name" preview in sync as the user types their first and last name.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\TextInput;
+
+TextInput::make('first_name')
+    -&gt;afterStateUpdatedJs(&lt;&lt;&lt;'JS'
+        $set('full_name_preview', $state + ' ' + $get('last_name'))
+        JS)
+
+TextInput::make('last_name')
+    -&gt;afterStateUpdatedJs(&lt;&lt;&lt;'JS'
+        $set('full_name_preview', $get('first_name') + ' ' + $state)
+        JS)
+
+TextInput::make('full_name_preview')
+    -&gt;label('Preview')
+    -&gt;disabled()
+    -&gt;dehydrated(false)
+</code></pre>
+
+<h2>7. Lazy-load heavy embedded Livewire components</h2>
+
+<p>If you're embedding a full Livewire component inside a form (a map picker, a chart, a third-party widget), <code>lazy()</code> defers its initial render until after the rest of the page has loaded.</p>
+
+<pre><code class="language-php">use Filament\Forms\Components\Livewire;
+use App\Livewire\DeliveryZoneMap;
+
+Livewire::make(DeliveryZoneMap::class)
+    -&gt;lazy()
+</code></pre>
+
+<hr />
+
+<p><strong>Takeaway:</strong> most of these techniques boil down to the same question: <em>does this interaction actually need a full server round-trip and a full re-render?</em> Reach for <code>deferLoading()</code> and <code>lazy()</code> for structural, expensive components; reach for debouncing, partial rendering, and JS-only reactivity for everyday field interactions.</p>
+
+<p>Thanks for reading and see you next time!</p>
+    </div>
+
+    <nav class="flex justify-between text-sm md:text-base">
+        <div>
+                            <a href="https://andreia.github.io/blog/2026-05-10/filament-recurrence" title="Older Post: Complete Recurrence With a Beautiful UI in Your Filament App in Less Than 10 Minutes">
+                    &LeftArrow; Complete Recurrence With a Beautiful UI in Your Filament App in Less Than 10 Minutes
+                </a>
+                    </div>
+
+        <div>
+                    </div>
+    </nav>
+
+    <div class='comments'>
+                    <Disqus shortname="andreiabohnergithub" />
+            </div>
+            </main>
+
+            <footer class="bg-gray-100 text-center text-sm mt-0 py-8" role="contentinfo">
+                <div class="flex flex-col md:flex-row justify-center md:mr-2">
+                    <span>
+                        Happy coding!
+                    </span>
+                    <span>
+                        <svg class="text-pink-500 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                <ul class="flex flex-col md:flex-row justify-center list-none">
+                    <li>
+                        <a href="https://twitter.com/andreiabohner" title="Andréia's Twitter">Twitter</a>
+                        . <a href="https://github.com/andreia" title="Andréia's Github">Github</a> . <a href="/blog/feed.atom" title="Blog Feed">RSS</a>
+                    </li>
+                </ul>
+            </footer>
+        </div>
+
+        <script src="/assets/build/js/main.js?id=4298c6b43295a622640b0114ea9f4284"></script>
+
+        <script>
+    const navMenu = {
+        toggle() {
+            const menu = document.getElementById('js-nav-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('lg:block');
+            document.getElementById('js-nav-menu-hide').classList.toggle('hidden');
+            document.getElementById('js-nav-menu-show').classList.toggle('hidden');
+        },
+    }
+</script>
+    </body>
+</html>
